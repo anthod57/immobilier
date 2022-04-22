@@ -123,8 +123,8 @@ export default async function handler(req, res) {
 
                 const q = query(collection(db, "offers"),
                     where("offerType", "==", req.body.offerType),
-                    byPropertyType ? where("propertyType", "==", byPropertyType.value) : where("offerType", "==", byOfferType.value),
-                    byCity ? where("city", "==", byCity.value) : where("offerType", "==", byOfferType.value),
+                    byPropertyType ? where("propertyType", "==", byPropertyType.value) : where("offerType", "==", req.body.offerType),
+                    byCity ? where("city", "==", byCity.value) : where("offerType", "==", req.body.offerType),
                     limit(req.body.limit > 0 ? req.body.limit : 9999));
 
                 return new Promise((resolve, object) => {
