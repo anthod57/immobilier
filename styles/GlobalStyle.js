@@ -59,6 +59,7 @@ export const GlobalStyle = createGlobalStyle`
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
         z-index: 5;
+        color: black;
     }
 
     .react-select__menu-list {
@@ -67,6 +68,7 @@ export const GlobalStyle = createGlobalStyle`
         border-radius: 0px;
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
+        color: black;
     }
 
     .react-select__option {

@@ -107,6 +107,8 @@ export const Hero = (props) => {
                         <button onClick={() => search()}><FontAwesomeIcon icon={solid('search')} />Rechercher</button>
                     </div>
                 </SearchPanel>
+
+                <b style={{color: "red"}}>{"Exemples d'offres -> Type d'offre: Achat | Type de bien: Appartement | Localisation: Paris 06"}</b>
             </Wrapper>
         </Container>
     )
