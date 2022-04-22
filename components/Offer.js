@@ -42,7 +42,7 @@ export const Offer = (props) => {
     return (
         <Container>
             <div className="image-container">
-                {props.data.images.map((item, index) => {
+                {props.data.images?.map((item, index) => {
                     return(
                         <Image key={index} style={image == index ? {opacity: 1} : {opacity: 0}} quality={80} layout='fill' objectFit='cover' src={props.data.images[index]} loading={index == 0 ? "eager" : "lazy"} priority={index == 0 ? true : false}/>
                     )

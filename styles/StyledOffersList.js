@@ -4,6 +4,17 @@ export const Container = styled.section`
     min-height: calc(100vh - 100px);
     margin-top: 100px;
     width: 100%;
+
+    .header {
+        margin: auto;
+        width: 100%;
+        color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 `
 
 export const Wrapper = styled.div`

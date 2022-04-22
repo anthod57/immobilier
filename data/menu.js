@@ -29,4 +29,10 @@ export const MENU_ITEMS = [
         showIfLogged: true,
         hideIfLogged: false
     },
+    {
+        text: "Connexion",
+        link: "/",
+        showIfLogged: true,
+        hideIfLogged: false
+    },
 ]
