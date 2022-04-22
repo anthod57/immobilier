@@ -4,6 +4,7 @@ import { Navbar } from '../components/Navbar';
 import { OffersList } from '../components/OffersList'
 import { MENU_ITEMS } from '../data/menu';
 import axios from 'axios';
+import { HOST } from '../data/config';
 
 export default function Search(props) {
     return (
@@ -28,7 +29,7 @@ export async function getServerSideProps(ctx) {
 
     const res = await axios.request({
         method: "GET",
-        url: "http://localhost:3000/api/offers",
+        url: `${HOST}/api/offers`,
         data: {
             offerType: offerType,
             filters: [
