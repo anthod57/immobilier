@@ -27,7 +27,7 @@ export default function Search(props) {
 export async function getServerSideProps(ctx) {
     const { offerType, propertyType, location, maxBudget, minSurface } = ctx.query;
 
-    const res = await axios.request({
+    const res = axios.request({
         method: "GET",
         url: `${HOST}/api/offers`,
         data: {
