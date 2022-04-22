@@ -56,7 +56,7 @@ export const SearchBar = (props) => {
     useEffect(() => {
         setOfferType(searchProps.props.offerType ? OFFER_TYPE[searchProps.props.offerType].value : null);
         setPropertyType(searchProps.props.propertyType ? PROPERTY_TYPE[searchProps.props.propertyType].value : null);
-        setLocation(searchProps.props.location.value ? searchProps.props.location.value : null);
+        setLocation(searchProps.props.location ? searchProps.props.location.value : null);
         setMaxBudget(searchProps.props.maxBudget ? searchProps.props.maxBudget : 0);
         setMinSurface(searchProps.props.minSurface ? searchProps.props.minSurface : 0);
         
