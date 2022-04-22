@@ -54,18 +54,17 @@ export const SearchBar = (props) => {
     }
 
     useEffect(() => {
-        setOfferType(searchProps.props.offerType ? OFFER_TYPE[searchProps.props.offerType].value : null);
-        setPropertyType(searchProps.props.propertyType ? PROPERTY_TYPE[searchProps.props.propertyType].value : null);
+        setOfferType(searchProps.props.offerType > -1 ? OFFER_TYPE[searchProps.props.offerType].value : null);
+        setPropertyType(searchProps.props.propertyType > -1 ? PROPERTY_TYPE[searchProps.props.propertyType].value : null);
         setLocation(searchProps.props.location ? searchProps.props.location.value : null);
-        setMaxBudget(searchProps.props.maxBudget ? searchProps.props.maxBudget : 0);
-        setMinSurface(searchProps.props.minSurface ? searchProps.props.minSurface : 0);
-        
+        setMaxBudget(searchProps.props.maxBudget > -1 ? searchProps.props.maxBudget : 0);
+        setMinSurface(searchProps.props.minSurface > -1 ? searchProps.props.minSurface : 0);
     }, [searchProps])
 
     return (
         <Container>
             <div className="row">
-                <label htmlFor="offer-type">{"Type d'offre:"}</label>
+                <label htmlFor="offer-type" onClick={() => dispatch(clearProps())}>{"Type d'offre:"}</label>
                 <Select defaultValue={OFFER_TYPE[searchProps.props.offerType]} id="offer-type" className="react-select" classNamePrefix="react-select" placeholder="Type d'offre" onChange={(e) => dispatch(setProps({offerType: OFFER_TYPE.findIndex(x => x.value == e.value)}))}
                     options={OFFER_TYPE} />
             </div>
