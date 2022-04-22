@@ -20,7 +20,8 @@ const postSchema = {
 }
 
 const getSchema = {
-    offerType: { type: "string", enum: ["buy", "rent"] },
+    getBy: { type: "string", enum: ["id", "offerType"] },
+    value: { type: "string" },
     filters: {
         type: "array", items: {
             type: "object",
@@ -28,7 +29,8 @@ const getSchema = {
                 filterBy: { type: "string" },
                 value: { type: "string" },
             }
-        }
+        },
+        optional: true
     },
     limit: { type: "number", optional: true }
 }
@@ -46,7 +48,7 @@ const v = new Validator();
 export default async function handler(req, res) {
     switch (req.method) {
         case 'POST': {
-            if(req.body.importFromSeloger){
+            if (req.body.importFromSeloger) {
                 return new Promise((resolve, object) => {
                     const offer = {
                         title: req.body.props.pageProps.title,
@@ -64,7 +66,7 @@ export default async function handler(req, res) {
                     }
 
                     let images = []
-                    
+
                     req.body.props.pageProps.listingData.listing.listingDetail.media.photos.map((photo) => {
                         images.push(photo.defaultUrl);
                     })
@@ -80,7 +82,7 @@ export default async function handler(req, res) {
                         resolve();
                     })
                 })
-            }else{
+            } else {
                 if (v.validate(req.body, postSchema) !== true) {
                     return res.status(500).send("Invalid request");
                 } else {
@@ -102,8 +104,8 @@ export default async function handler(req, res) {
             if (v.validate(req.body, getSchema) !== true) {
                 return res.status(500).send("Invalid request");
             } else {
-                if (req.body.filterBy === "id") {
-                    const docRef = doc(db, "offers", req.body.filter);
+                if (req.body.getBy === "id") {
+                    const docRef = doc(db, "offers", req.body.value);
 
                     return new Promise((resolve, object) => {
                         getDoc(docRef).then((doc) => {
@@ -115,34 +117,34 @@ export default async function handler(req, res) {
                             resolve();
                         });
                     })
-                }
+                } else {
+                    let byPropertyType = req.body.filters.find(x => x.filterBy == "propertyType");
+                    let byCity = req.body.filters.find(x => x.filterBy == "city");
 
-                let byPropertyType = req.body.filters.find(x => x.filterBy == "propertyType");
-                let byCity = req.body.filters.find(x => x.filterBy == "city");
 
+                    const q = query(collection(db, "offers"),
+                        where("offerType", "==", req.body.value),
+                        byPropertyType ? where("propertyType", "==", byPropertyType.value) : where("offerType", "==", req.body.value),
+                        byCity ? where("city", "==", byCity.value) : where("offerType", "==", req.body.value),
+                        limit(req.body.limit > 0 ? req.body.limit : 9999));
 
-                const q = query(collection(db, "offers"),
-                    where("offerType", "==", req.body.offerType),
-                    byPropertyType ? where("propertyType", "==", byPropertyType.value) : where("offerType", "==", req.body.offerType),
-                    byCity ? where("city", "==", byCity.value) : where("offerType", "==", req.body.offerType),
-                    limit(req.body.limit > 0 ? req.body.limit : 9999));
+                    return new Promise((resolve, object) => {
+                        getDocs(q).then((e) => {
+                            let offers = [];
 
-                return new Promise((resolve, object) => {
-                    getDocs(q).then((e) => {
-                        let offers = [];
+                            e.docs.map((doc) => {
+                                offers.push(doc.data());
+                            });
 
-                        e.docs.map((doc) => {
-                            offers.push(doc.data());
+                            res.status(200).json(offers);
+                            resolve();
+                        }).catch((error) => {
+                            console.log(error);
+                            res.status(500).json(error);
+                            resolve();
                         });
-
-                        res.status(200).json(offers);
-                        resolve();
-                    }).catch((error) => {
-                        console.log(error);
-                        res.status(500).json(error);
-                        resolve();
-                    });
-                })
+                    })
+                }
             }
         }
 

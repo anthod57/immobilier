@@ -15,7 +15,7 @@ export default function Search(props) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <Navbar menu={MENU_ITEMS} active={0}></Navbar>
+            <Navbar menu={MENU_ITEMS}></Navbar>
 
             <main>
                 <OffersList offers={props.result}></OffersList>
@@ -31,7 +31,8 @@ export async function getServerSideProps(ctx) {
         method: "GET",
         url: `${HOST}/api/offers`,
         data: {
-            offerType: offerType,
+            getBy: "offerType",
+            value: offerType,
             filters: [
                 {
                     filterBy: "city",
