@@ -54,11 +54,11 @@ export const SearchBar = (props) => {
     }
 
     useEffect(() => {
-        setOfferType(OFFER_TYPE[searchProps.props.offerType].value || null);
-        setPropertyType(PROPERTY_TYPE[searchProps.props.propertyType].value || null);
-        setLocation(searchProps.props.location.value || null);
-        setMaxBudget(searchProps.props.maxBudget || 0);
-        setMinSurface(searchProps.props.minSurface || 0);
+        setOfferType(OFFER_TYPE[searchProps.props.offerType].value ? OFFER_TYPE[searchProps.props.offerType].value : null);
+        setPropertyType(PROPERTY_TYPE[searchProps.props.propertyType].value ? PROPERTY_TYPE[searchProps.props.propertyType].value : null);
+        setLocation(searchProps.props.location.value ? searchProps.props.location.value : null);
+        setMaxBudget(searchProps.props.maxBudget ? searchProps.props.maxBudget : 0);
+        setMinSurface(searchProps.props.minSurface ? searchProps.props.minSurface : 0);
     }, [searchProps])
 
     return (
