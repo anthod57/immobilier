@@ -4,10 +4,12 @@ import Link from 'next/link'
 import { Container, Wrapper, MobileMenuButton, MobileMenu } from '../styles/StyledNavbar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { LoginPanel } from './LoginPanel'
 
 export const Navbar = (props) => {
 
     const [showMobileMenu, setShowMobileMenu] = useState(false);
+    const [showLoginForm, setShowLoginForm] = useState(false);
     const [scrollOffset, setScrollOffset] = useState(0);
 
     useEffect(() => {
@@ -30,6 +32,10 @@ export const Navbar = (props) => {
                 <div className="menu">
                     <ul>
                         {props.menu.map((item, index) => {
+                            if(item.text === "Connexion"){
+                                return (<a onClick={() => {setShowLoginForm(true)}} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
+                            }
+
                             return (<Link key={`navItem-${index}`} href={item.link}><a className={props.active == index ? "active" : ""}><li>{item.text}</li></a></Link>)
                         })}
                     </ul>
@@ -45,6 +51,7 @@ export const Navbar = (props) => {
                     </ul>
                 </MobileMenu>
             </Wrapper>
+            {showLoginForm && (<LoginPanel setShow={setShowLoginForm}></LoginPanel>)}
         </Container>
     )
 }

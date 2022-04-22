@@ -11,6 +11,7 @@ export const Container = styled.nav`
     a, a:hover, a:visited, a:active {
         text-decoration: none;
         height: 100%;
+        cursor: pointer;
     } 
 `
 

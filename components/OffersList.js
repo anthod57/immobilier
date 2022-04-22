@@ -18,11 +18,13 @@ export const OffersList = (props) => {
                 <SearchBar></SearchBar>
             </div>
             <Wrapper>
-                {props.offers.map((item, index) => {
+                {props.offers.length > 0 ? props.offers.map((item, index) => {
                     return (
                         <Offer key={index} data={item}></Offer>
                     )
-                })}
+                }) :
+                <h2>Aucune offre n'a été trouvée</h2>
+                }
             </Wrapper>
         </Container>
     )

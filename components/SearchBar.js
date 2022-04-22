@@ -64,7 +64,7 @@ export const SearchBar = (props) => {
     return (
         <Container>
             <div className="row">
-                <label htmlFor="offer-type" onClick={() => dispatch(clearProps())}>{"Type d'offre:"}</label>
+                <label htmlFor="offer-type">{"Type d'offre:"}</label>
                 <Select defaultValue={OFFER_TYPE[searchProps.props.offerType]} id="offer-type" className="react-select" classNamePrefix="react-select" placeholder="Type d'offre" onChange={(e) => dispatch(setProps({offerType: OFFER_TYPE.findIndex(x => x.value == e.value)}))}
                     options={OFFER_TYPE} />
             </div>
