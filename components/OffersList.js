@@ -23,7 +23,7 @@ export const OffersList = (props) => {
                         <Offer key={index} data={item}></Offer>
                     )
                 }) :
-                <h2>Aucune offre n'a été trouvée</h2>
+                <h2>{"Aucune offre n'a été trouvée"}</h2>
                 }
             </Wrapper>
         </Container>
