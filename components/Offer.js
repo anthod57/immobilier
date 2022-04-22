@@ -70,7 +70,7 @@ export const Offer = (props) => {
                     <span>{props.data.rooms} pièce(s)</span>
                 </div>
 
-                <button>Plus d'informations</button>
+                <button>{"Plus d'informations"}</button>
             </div>
         </Container>
     )

@@ -58,7 +58,7 @@ export const Hero = (props) => {
                 <h1>IMMOBILIER vous accompagne dans tous vos projets</h1>
                 <SearchPanel>
                     <div className="row">
-                        <label htmlFor="offer-type">Type d'offre:</label>
+                        <label htmlFor="offer-type">{"Type d'offre:"}</label>
                         <Select id="offer-type" className="react-select" classNamePrefix="react-select" placeholder="Type d'offre" onChange={(e) => setOfferType(e.value)}
                             options={[
                                 {
