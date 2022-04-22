@@ -7,7 +7,7 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { db } from '../firebase/config'
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import { useRouter } from 'next/router'
-import { getProps, setProps } from '../redux/features/searchSlice';
+import { clearProps, getProps, setProps } from '../redux/features/searchSlice';
 import { useSelector, useDispatch } from "react-redux";
 import { PROPERTY_TYPE, OFFER_TYPE } from '../data/select';
 
@@ -54,11 +54,12 @@ export const SearchBar = (props) => {
     }
 
     useEffect(() => {
-        setOfferType(OFFER_TYPE[searchProps.props.offerType].value ? OFFER_TYPE[searchProps.props.offerType].value : null);
-        setPropertyType(PROPERTY_TYPE[searchProps.props.propertyType].value ? PROPERTY_TYPE[searchProps.props.propertyType].value : null);
+        setOfferType(searchProps.props.offerType ? OFFER_TYPE[searchProps.props.offerType].value : null);
+        setPropertyType(searchProps.props.propertyType ? PROPERTY_TYPE[searchProps.props.propertyType].value : null);
         setLocation(searchProps.props.location.value ? searchProps.props.location.value : null);
         setMaxBudget(searchProps.props.maxBudget ? searchProps.props.maxBudget : 0);
         setMinSurface(searchProps.props.minSurface ? searchProps.props.minSurface : 0);
+        
     }, [searchProps])
 
     return (
