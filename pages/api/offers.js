@@ -48,7 +48,7 @@ const v = new Validator();
 export default async function handler(req, res) {
     switch (req.method) {
         case 'POST': {
-            if (req.body.importFromSeloger) {
+            if (req.body.importFromSeloger) { // Import an offer directly from a Seloger ad, using NEXT_DATA json data on the ad page
                 return new Promise((resolve, object) => {
                     const offer = {
                         title: req.body.props.pageProps.title,
@@ -104,7 +104,7 @@ export default async function handler(req, res) {
             if (v.validate(req.body, getSchema) !== true) {
                 return res.status(500).send("Invalid request");
             } else {
-                if (req.body.getBy === "id") {
+                if (req.body.getBy === "id") { // Get an offer by ID
                     const docRef = doc(db, "offers", req.body.value);
 
                     return new Promise((resolve, object) => {
@@ -117,7 +117,7 @@ export default async function handler(req, res) {
                             resolve();
                         });
                     })
-                } else {
+                } else { // Get offers based on filters: Offer type (required), Property type, City
                     let byPropertyType = req.body.filters.find(x => x.filterBy == "propertyType");
                     let byCity = req.body.filters.find(x => x.filterBy == "city");
 

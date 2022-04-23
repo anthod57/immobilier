@@ -30,6 +30,7 @@ export const SearchBar = (props) => {
         router.push(url);
     }
 
+    // Dynamically get and return cities from firestore based on user input on the location select component
     const getCities = async () => {
         const input = locationSelectRef.current.inputRef.value;
 
@@ -53,6 +54,7 @@ export const SearchBar = (props) => {
         return [];
     }
 
+    // Manually set states based on redux because defaultValue prop doesn't call onChange event
     useEffect(() => {
         setOfferType(searchProps.props.offerType > -1 ? OFFER_TYPE[searchProps.props.offerType].value : null);
         setPropertyType(searchProps.props.propertyType > -1 ? PROPERTY_TYPE[searchProps.props.propertyType].value : null);

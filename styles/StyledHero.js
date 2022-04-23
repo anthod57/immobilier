@@ -4,12 +4,15 @@ export const Container = styled.section`
     background-color: ${props => props.theme.white};
     color: ${props => props.bg ? props.theme.white : ""};
     min-height: 100vh;
+    height: auto;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-image: ${props => props.bg ? `url(${props.bg})` : ""};
+    padding-top: 100px;
 
     @media only screen and (min-width: 768px){
+        padding-top: 0;
         margin-top: 100px;
         min-height: 500px;
     }
@@ -18,12 +21,13 @@ export const Container = styled.section`
 export const Wrapper = styled.div`
     margin: auto;
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 100px);
+    height: auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+
 
     h1 {
         text-align: center;
@@ -33,6 +37,7 @@ export const Wrapper = styled.div`
     }
 
     @media only screen and (min-width: 768px){
+        justify-content: center;
         min-height: 500px;
     }
 `

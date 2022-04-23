@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.nav`
-    background-color: ${props => props.scrollOffset > 0 || props.show ? "white" : ""};
+    background-color: ${props => props.scrollOffset > 0 || props.show == true ? "white" : "transparent"};
     width: 100%;
     height: 100px;
     position: fixed;

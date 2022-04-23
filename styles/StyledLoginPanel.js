@@ -13,16 +13,17 @@ export const Container = styled.div`
 `
 
 export const Wrapper = styled.div`
-    width: 500px;
-    height: 600px;
-    background-color: ${props => props.theme.white};
+    width: 100%;
+    height: 100%;
+    background-color: white;
     border-radius: 10px;
     box-shadow: 0px 0px 5px 0px #00000080;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3em 100px;
     position: relative;
+    padding: 1em;
+    padding-top: 50px;
 
     .close {
         top: 1em;
@@ -33,7 +34,9 @@ export const Wrapper = styled.div`
     }
 
     @media only screen and (min-width: 768px){
-
+        width: 500px;
+        height: 600px;
+        padding: 3em 100px;
     }
 `
 
@@ -70,4 +73,14 @@ export const Form = styled.div`
     display: ${props => props.show ? "flex" : "none"};
     flex-direction: column;
     margin-top: 1em;
+
+    .error {
+        margin-top: 1em;
+        color: red;
+        font-size: 0.8em;
+    }
+    
+    button {
+        margin-top: 1em;
+    }
 `

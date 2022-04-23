@@ -3,36 +3,48 @@ export const MENU_ITEMS = [
         text: "Accueil",
         link: "/",
         showIfLogged: true,
-        hideIfLogged: false
+        hideIfNotLogged: false
     },
     {
         text: "Vendre",
         link: "/",
         showIfLogged: true,
-        hideIfLogged: false
+        hideIfNotLogged: false
     },
     {
         text: "Acheter",
         link: "/",
         showIfLogged: true,
-        hideIfLogged: false
+        hideIfNotLogged: false
     },
     {
         text: "Louer",
         link: "/",
         showIfLogged: true,
-        hideIfLogged: false
+        hideIfNotLogged: false
     },
     {
         text: "Contact",
         link: "/",
         showIfLogged: true,
-        hideIfLogged: false
+        hideIfNotLogged: false
     },
     {
         text: "Connexion",
+        link: "login",
+        showIfLogged: false,
+        hideIfNotLogged: false
+    },
+    {
+        text: "Mon Compte",
         link: "/",
         showIfLogged: true,
-        hideIfLogged: false
+        hideIfNotLogged: true
+    },
+    {
+        text: "Se déconnecter",
+        link: "signout",
+        showIfLogged: true,
+        hideIfNotLogged: true
     },
 ]

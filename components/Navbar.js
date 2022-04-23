@@ -5,13 +5,20 @@ import { Container, Wrapper, MobileMenuButton, MobileMenu } from '../styles/Styl
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { LoginPanel } from './LoginPanel'
+import { getUser } from "../redux/features/userSlice";
+import { useSelector } from "react-redux";
+import useAuth from '../firebase/auth'
 
 export const Navbar = (props) => {
+
+    const user = useSelector(getUser);
+    const { signOutUser } = useAuth();
 
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [showLoginForm, setShowLoginForm] = useState(false);
     const [scrollOffset, setScrollOffset] = useState(0);
 
+    // Set navbar background color to white when page is scrolled
     useEffect(() => {
         const onScroll = () => {
             setScrollOffset(window.pageYOffset);
@@ -32,8 +39,15 @@ export const Navbar = (props) => {
                 <div className="menu">
                     <ul>
                         {props.menu.map((item, index) => {
-                            if(item.text === "Connexion"){
+                            if(!item.showIfLogged && user.user) return; // If user is logged in and link should not be showed in this case
+                            if(item.hideIfNotLogged && !user.user) return; // If user is not logged in and link requires it 
+
+                            if(item.link === "login"){
                                 return (<a onClick={() => {setShowLoginForm(true)}} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
+                            }
+
+                            if(item.link === "signout"){
+                                return (<a onClick={async () => await signOutUser()} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
                             }
 
                             return (<Link key={`navItem-${index}`} href={item.link}><a className={props.active == index ? "active" : ""}><li>{item.text}</li></a></Link>)
@@ -46,6 +60,17 @@ export const Navbar = (props) => {
                 <MobileMenu show={showMobileMenu}>
                     <ul>
                         {props.menu.map((item, index) => {
+                            if(!item.showIfLogged && user.user) return; // If user is logged in and link should not be showed in this case
+                            if(item.hideIfNotLogged && !user.user) return; // If user is not logged in and link requires it 
+
+                            if(item.link === "login"){
+                                return (<a onClick={() => {setShowLoginForm(true)}} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
+                            }
+
+                            if(item.link === "signout"){
+                                return (<a onClick={async () => await signOutUser()} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
+                            }
+
                             return (<Link key={`navItem-${index}`} href={item.link}><a className={props.active == index ? "active" : ""}><li>{item.text}</li></a></Link>)
                         })}
                     </ul>
