@@ -10,6 +10,7 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    color: black;
 `
 
 export const Wrapper = styled.div`

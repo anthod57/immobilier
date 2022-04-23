@@ -2,6 +2,8 @@ import Head from 'next/head'
 import { Navbar } from '../components/Navbar'
 import { Hero } from '../components/Hero'
 import { MENU_ITEMS } from '../data/menu'
+import { About } from '../components/About'
+import { Services } from '../components/Services'
 
 export default function Home() {
   return (
@@ -16,6 +18,8 @@ export default function Home() {
 
       <main>
         <Hero bg={"/images/hero.jpg"}></Hero>
+        <About></About>
+        <Services></Services>
       </main>
     </>
   )

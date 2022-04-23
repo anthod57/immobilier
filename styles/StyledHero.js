@@ -12,8 +12,6 @@ export const Container = styled.section`
     padding-top: 100px;
 
     @media only screen and (min-width: 768px){
-        padding-top: 0;
-        margin-top: 100px;
         min-height: 500px;
     }
 `

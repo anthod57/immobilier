@@ -13,6 +13,11 @@ export const Container = styled.nav`
         height: 100%;
         cursor: pointer;
     } 
+
+    @media only screen and (min-width: 768px){
+        color: ${props => props.scrollOffset > 0 || props.show == true ? "black" : "white"};
+        text-shadow: 0 0 ${props => props.scrollOffset > 0 || props.show == true ? "0px" : "10px"} #00000080;
+    }
 `
 
 export const Wrapper = styled.div`
