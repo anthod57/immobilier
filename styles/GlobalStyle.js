@@ -49,6 +49,19 @@ export const GlobalStyle = createGlobalStyle`
 
     }
 
+    .rc-slider {
+        margin: 1em;
+        width: unset;
+
+        .rc-slider-track {
+            background-color: #4cb8ac;
+        }
+
+        .rc-slider-handle {
+            border-color: #4cb8ac;
+        }
+    }
+
     .react-select {
         max-width: 500px;
     }

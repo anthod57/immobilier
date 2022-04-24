@@ -62,4 +62,32 @@ export const MENU_ITEMS = [
         showIfLogged: true,
         hideIfNotLogged: true
     },
+    {
+        text: "Mentions légales",
+        link: "/",
+        side: "bottom",
+        showIfLogged: true,
+        hideIfNotLogged: false
+    },
+    {
+        text: "Cookies",
+        link: "/",
+        side: "bottom",
+        showIfLogged: true,
+        hideIfNotLogged: false
+    },
+    {
+        text: "Contact",
+        link: "/",
+        side: "bottom",
+        showIfLogged: true,
+        hideIfNotLogged: false
+    },
+    {
+        text: "Données personnelles",
+        link: "/",
+        side: "bottom",
+        showIfLogged: true,
+        hideIfNotLogged: false
+    },
 ]

@@ -31,7 +31,7 @@ export const Offer = (props) => {
                 setImage(currentIndex + 1);
             }
         } else {
-            if (currentIndex - 1 <= 0) {
+            if (currentIndex - 1 < 0) {
                 setImage(props.data.images.length - 1);
             } else {
                 setImage(currentIndex - 1);

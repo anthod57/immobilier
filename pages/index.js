@@ -6,7 +6,11 @@ import { About } from '../components/About'
 import { Services } from '../components/Services'
 import { FeaturedProperties } from '../components/FeaturedProperties'
 import { HOST } from '../data/config'
+import { SERVICES_ITEMS } from '../data/services'
 import axios from 'axios';
+import { Testimony } from '../components/Testimony'
+import { TESTIMONY_ITEMS } from '../data/testimonies'
+import { Footer } from '../components/Footer'
 
 export default function Home(props) {
   return (
@@ -24,9 +28,12 @@ export default function Home(props) {
         <About></About>
         <Services></Services> */}
         <Hero></Hero>
-        <FeaturedProperties title={"Nouvelles annonces (Ventes)"} data={props.result}></FeaturedProperties>
-        <About></About>
+        <FeaturedProperties title={"Dernières annonces (Ventes)"} data={props.result}></FeaturedProperties>
+        <Services services={SERVICES_ITEMS}></Services>
+        <Testimony testimonies={TESTIMONY_ITEMS}></Testimony>
       </main>
+
+      <Footer menu={MENU_ITEMS}></Footer>
     </>
   )
 }
