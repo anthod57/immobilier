@@ -17,23 +17,23 @@ export const Offer = (props) => {
     const [image, setImage] = useState(0);
 
     useEffect(() => {
-        
+
     }, [image])
 
 
     const changeImage = (direction) => {
         let currentIndex = image;
 
-        if(direction == 1){
-            if(currentIndex + 1 >= props.data.images.length){
+        if (direction == 1) {
+            if (currentIndex + 1 >= props.data.images.length) {
                 setImage(0);
-            }else{
+            } else {
                 setImage(currentIndex + 1);
             }
-        }else{
-            if(currentIndex - 1 <= 0){
+        } else {
+            if (currentIndex - 1 <= 0) {
                 setImage(props.data.images.length - 1);
-            }else{
+            } else {
                 setImage(currentIndex - 1);
             }
         }
@@ -43,8 +43,8 @@ export const Offer = (props) => {
         <Container>
             <div className="image-container">
                 {props.data.images?.map((item, index) => {
-                    return(
-                        <Image key={index} style={image == index ? {opacity: 1} : {opacity: 0}} quality={80} layout='fill' objectFit='cover' src={props.data.images[index]} loading={index == 0 ? "eager" : "lazy"} priority={index == 0 ? true : false}/>
+                    return (
+                        <Image key={index} style={image == index ? { opacity: 1 } : { opacity: 0 }} quality={80} layout='fill' objectFit='cover' src={props.data.images[index]} loading={index == 0 ? "eager" : "lazy"} priority={index == 0 ? true : false} />
                     )
                 })}
 
@@ -54,23 +54,29 @@ export const Offer = (props) => {
                 </div>
             </div>
             <div className="content">
+                <div className="row">
+                    <span>{formatPropertyType(props.data.propertyType)}</span>
+                    <b className="price">{formatPrice(props.data.price)}€</b>
+                </div>
+                
                 <h2>{props.data.title}</h2>
 
                 <div className="row">
-                    <b>{props.data.city.toUpperCase()}</b>
+                    <span className="city">{props.data.city.toUpperCase()}</span>
                 </div>
-
+                <hr></hr>
                 <div className="row">
-                    <span>{formatPropertyType(props.data.propertyType)}</span>
-                    <b>{formatPrice(props.data.price)}€</b>
+                    <div className="left">
+                        <b><FontAwesomeIcon icon={solid('ruler-combined')} />{props.data.surface} m²</b>
+                    </div>
+
+                    <div className="right">
+                        <b><FontAwesomeIcon icon={solid('bed')} />{props.data.bedrooms}</b>
+                        <b><FontAwesomeIcon icon={solid('bath')} />{props.data.bathrooms}</b>
+                    </div>
                 </div>
 
-                <div className="row">
-                    <span>{props.data.surface} m²</span>
-                    <span>{props.data.rooms} pièce(s)</span>
-                </div>
-
-                <button>{"Plus d'informations"}</button>
+                {/* <button>{"Plus d'informations"}</button> */}
             </div>
         </Container>
     )

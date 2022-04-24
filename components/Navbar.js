@@ -15,7 +15,7 @@ export const Navbar = (props) => {
     const { signOutUser } = useAuth();
 
     const [showMobileMenu, setShowMobileMenu] = useState(false);
-    const [showLoginForm, setShowLoginForm] = useState(false);
+    const [showLoginForm, setShowLoginForm] = useState(-1);
     const [scrollOffset, setScrollOffset] = useState(0);
 
     // Set navbar background color to white when page is scrolled
@@ -30,53 +30,54 @@ export const Navbar = (props) => {
         return () => window.removeEventListener('scroll', onScroll);
     }, [])
 
+    const menuFilter = (filter) => props.menu.map((item, index) => {
+        if (filter && item.side !== filter.side) return;
+        if (!item.showIfLogged && user.user) return; // If user is logged in and link should not be showed in this case
+        if (item.hideIfNotLogged && !user.user) return; // If user is not logged in and link requires it 
+
+        if (item.link === "login") {
+            return (<a onClick={() => { setShowLoginForm(1) }} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
+        }
+
+        if (item.link === "signout") {
+            return (<a onClick={async () => await signOutUser()} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
+        }
+
+        if (item.link == "register") {
+            return (<a onClick={() => { setShowLoginForm(0) }} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
+        }
+
+        return (<Link key={`navItem-${index}`} href={item.link}><a className={props.active == index ? "active" : ""}><li>{item.text}</li></a></Link>)
+    })
+
     return (
         <Container scrollOffset={scrollOffset} show={showMobileMenu}>
             <Wrapper>
                 <div className="logo">
-                    <Image quality={100} layout='fill' objectFit='contain' src={"/images/logo.png"} loading="lazy" />
+                    <h2>Logo</h2>
                 </div>
                 <div className="menu">
-                    <ul>
-                        {props.menu.map((item, index) => {
-                            if(!item.showIfLogged && user.user) return; // If user is logged in and link should not be showed in this case
-                            if(item.hideIfNotLogged && !user.user) return; // If user is not logged in and link requires it 
-
-                            if(item.link === "login"){
-                                return (<a onClick={() => {setShowLoginForm(true)}} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
-                            }
-
-                            if(item.link === "signout"){
-                                return (<a onClick={async () => await signOutUser()} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
-                            }
-
-                            return (<Link key={`navItem-${index}`} href={item.link}><a className={props.active == index ? "active" : ""}><li>{item.text}</li></a></Link>)
-                        })}
-                    </ul>
+                    <div className="left">
+                        <ul>
+                            {menuFilter({ side: "left" })}
+                        </ul>
+                    </div>
+                    <div className="right">
+                        <ul>
+                            {menuFilter({ side: "right" })}
+                        </ul>
+                    </div>
                 </div>
                 <MobileMenuButton onClick={() => setShowMobileMenu(!showMobileMenu)}>
                     <FontAwesomeIcon icon={solid('bars')} />
                 </MobileMenuButton>
                 <MobileMenu show={showMobileMenu}>
                     <ul>
-                        {props.menu.map((item, index) => {
-                            if(!item.showIfLogged && user.user) return; // If user is logged in and link should not be showed in this case
-                            if(item.hideIfNotLogged && !user.user) return; // If user is not logged in and link requires it 
-
-                            if(item.link === "login"){
-                                return (<a onClick={() => {setShowLoginForm(true)}} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
-                            }
-
-                            if(item.link === "signout"){
-                                return (<a onClick={async () => await signOutUser()} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
-                            }
-
-                            return (<Link key={`navItem-${index}`} href={item.link}><a className={props.active == index ? "active" : ""}><li>{item.text}</li></a></Link>)
-                        })}
+                        {menuFilter()}
                     </ul>
                 </MobileMenu>
             </Wrapper>
-            {showLoginForm && (<LoginPanel setShow={setShowLoginForm}></LoginPanel>)}
+            {showLoginForm > -1 && (<LoginPanel setShow={setShowLoginForm} show={showLoginForm}></LoginPanel>)}
         </Container>
     )
 }

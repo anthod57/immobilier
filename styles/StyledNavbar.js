@@ -2,20 +2,20 @@ import styled from "styled-components";
 
 export const Container = styled.nav`
     background-color: ${props => props.scrollOffset > 0 || props.show == true ? "white" : "transparent"};
+    color: ${props => props.scrollOffset > 0 || props.show == true ? props.theme.green1 : "white"};
     width: 100%;
-    height: 100px;
+    height: 80px;
     position: fixed;
     transition: background-color 0.3s ease-in-out;
     z-index: 999;
 
     a, a:hover, a:visited, a:active {
         text-decoration: none;
-        height: 100%;
         cursor: pointer;
+        height: 100%;
     } 
 
     @media only screen and (min-width: 768px){
-        color: ${props => props.scrollOffset > 0 || props.show == true ? "black" : "white"};
         text-shadow: 0 0 ${props => props.scrollOffset > 0 || props.show == true ? "0px" : "10px"} #00000080;
     }
 `
@@ -25,49 +25,69 @@ export const Wrapper = styled.div`
     height: 100%;
     display: flex;
     width: 100%;
-    max-width: 1100px;
     align-items: center;
-    justify-content: space-between;
     position: relative;
+    justify-content: space-between;
     padding: 0 1em;
 
     .logo {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        max-width: 180px;
-        max-height: 50px;
+        width: 100px;
+
+        h2 {
+            font-family: 'Quicksand',sans-serif !important;
+            font-weight: 400;
+            font-size: 2em;
+        }
     }
 
     .menu {
         height: 100%;
+        width: 100%;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
         display: none;
+
+        .left {
+            height: 100%;
+        }
+
+        .right {
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
 
         ul {
             list-style: none;
             margin: 0;
             padding: 0;
             font-weight: 500;
+            height: 100%;
 
             a {
-                margin: 1em;
+                padding: 0 1em;
                 float: left;
-                transition: 0.3s all;
+                transition: 0.2s all;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: inset 0 -2px 0 0 transparent;
 
                 &:hover {
-                    color: ${props => props.theme.green2};
+                    box-shadow: inset 0 -2px 0 0 white;
                 }
             }
 
             .active {
-                color: ${props => props.theme.green2};
+                box-shadow: inset 0 -2px 0 0 white;
             }
         }
     }
 
     @media only screen and (min-width: 768px){
+        justify-content: unset;
+        box-shadow: inset 0 -1px 0 0 #ffffff40;
+
         .menu {
             display: flex;
         }
@@ -80,7 +100,6 @@ export const MobileMenuButton = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: ${props => props.theme.green2};
     
     svg {
         width: 40px;
@@ -93,7 +112,7 @@ export const MobileMenuButton = styled.div`
 `
 export const MobileMenu = styled.div`
     position: absolute;
-    margin-top: 100px;
+    margin-top: 80px;
     right: ${props => props.show ? "0px" : "-60%"};
     width: 60%;
     height: calc(100vh - 100px);
@@ -116,12 +135,12 @@ export const MobileMenu = styled.div`
             }
 
             &:hover {
-                    color: ${props => props.theme.green2};
+                    
             }
         }
 
         .active {
-                color: ${props => props.theme.green2};
+                
         }
     }
 

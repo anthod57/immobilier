@@ -1,5 +1,5 @@
 import { app, db } from "../../firebase/config";
-import { doc, deleteDoc, collection, getDoc, addDoc, query, where, getDocs, setDoc, limit, Timestamp } from "firebase/firestore";
+import { doc, orderBy, deleteDoc, collection, getDoc, addDoc, query, where, getDocs, setDoc, limit, Timestamp } from "firebase/firestore";
 import Validator from "fastest-validator";
 
 const postSchema = {
@@ -57,7 +57,7 @@ export default async function handler(req, res) {
                         description: req.body.props.pageProps.listingData.listing.listingDetail.descriptive,
                         price: req.body.props.pageProps.listingData.listing.listingDetail.listingPrice.price,
                         city: req.body.props.pageProps.params.city,
-                        address: { type: "string" },
+                        address: "",
                         rooms: req.body.props.pageProps.listingData.listing.listingDetail.roomCount,
                         bedrooms: req.body.props.pageProps.listingData.listing.listingDetail.bedroomCount,
                         bathrooms: 1, //NEED TO CHANGE THIS MANUALLY
@@ -73,14 +73,19 @@ export default async function handler(req, res) {
 
                     offer.images = images;
 
-                    addDoc(collection(db, "offers"), offer).then((doc) => {
-                        res.status(200).json({ id: doc.id });
-                        resolve();
-                    }).catch((error) => {
-                        console.log(error);
-                        res.status(500).json(error);
-                        resolve();
-                    })
+                    if (v.validate(offer, postSchema) !== true) {
+                        console.log(v.validate(offer, postSchema));
+                        return res.status(500).send("Invalid request");
+                    } else {
+                        addDoc(collection(db, "offers"), offer).then((doc) => {
+                            res.status(200).json({ id: doc.id });
+                            resolve();
+                        }).catch((error) => {
+                            console.log(error);
+                            res.status(500).json(error);
+                            resolve();
+                        })
+                    }
                 })
             } else {
                 if (v.validate(req.body, postSchema) !== true) {
@@ -118,15 +123,16 @@ export default async function handler(req, res) {
                         });
                     })
                 } else { // Get offers based on filters: Offer type (required), Property type, City
-                    let byPropertyType = req.body.filters.find(x => x.filterBy == "propertyType");
-                    let byCity = req.body.filters.find(x => x.filterBy == "city");
+                    let byPropertyType = req.body.filters?.find(x => x.filterBy == "propertyType");
+                    let byCity = req.body.filters?.find(x => x.filterBy == "city");
 
 
                     const q = query(collection(db, "offers"),
                         where("offerType", "==", req.body.value),
                         byPropertyType ? where("propertyType", "==", byPropertyType.value) : where("offerType", "==", req.body.value),
                         byCity ? where("city", "==", byCity.value) : where("offerType", "==", req.body.value),
-                        limit(req.body.limit > 0 ? req.body.limit : 9999));
+                        limit(req.body.limit > 0 ? req.body.limit : 9999),
+                        orderBy("date", "desc"));
 
                     return new Promise((resolve, object) => {
                         getDocs(q).then((e) => {

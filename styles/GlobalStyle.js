@@ -1,8 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
 export const Theme = {
-    white: "#EBF2FA",
-    green1: "#A5BE00",
+    white: "#f9f9f9",
+    green1: "#4cb8ac",
     green2: "#679436",
     blue1: "#427AA1",
     blue2: "#05668D"
@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
 
 
     html, body {
-        background-color: #EBF2FA;
+        background-color: #f9f9f9;
         font-family: 'Roboto', sans-serif;
         color: black;
         font-size: 16px;
@@ -121,7 +121,7 @@ export const GlobalStyle = createGlobalStyle`
         padding: 1em 2em;
         border-radius: 5px;
         color: white;
-        background-color: ${Theme.green2};
+        background-color: ${Theme.green1};
         transition: all 0.2s;
         cursor: pointer;
         display: flex;
@@ -141,11 +141,11 @@ export const GlobalStyle = createGlobalStyle`
         }
 
         &:hover {
-            background-color: #719e40;
+            background-color: #56c2b6;
         }
 
         &:active {
-            background-color: #5d8a2c;
+            background-color: #42aea2;
         }
     }
 `;

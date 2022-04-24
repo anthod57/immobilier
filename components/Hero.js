@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { Container, SearchPanel, Wrapper } from '../styles/StyledHero'
-import { SearchBar } from './SearchBar'
+import React from 'react'
+import Image from 'next/image'
+import { Container, Wrapper } from '../styles/StyledHero'
+import { SearchBar2 } from './SearchBar2'
 
-
-
-export const Hero = (props) => {
+export const Hero = () => {
     return (
-        <Container bg={props.bg}>
+        <Container>
+            <div className="hero-background">
+                <Image quality={90} layout="fill" objectFit='cover' src={"/images/hero2.jpg"} loading="lazy" />
+            </div>
+
             <Wrapper>
-                <h1>IMMOBILIER vous accompagne dans tous vos projets</h1>
-                <SearchBar></SearchBar>
-                <b style={{color: "red"}}>{"Exemples d'offres -> Type d'offre: Achat | Type de bien: Appartement | Localisation: Paris 06"}</b>
+                <h1>Title</h1>
+                <h2>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</h2>
+                <SearchBar2></SearchBar2>
             </Wrapper>
         </Container>
     )

@@ -5,6 +5,7 @@ import { OffersList } from '../components/OffersList'
 import { MENU_ITEMS } from '../data/menu';
 import axios from 'axios';
 import { HOST } from '../data/config';
+import { Hero } from '../components/Hero';
 
 export default function Search(props) {
     return (
@@ -18,6 +19,7 @@ export default function Search(props) {
             <Navbar menu={MENU_ITEMS}></Navbar>
 
             <main>
+              
                 <OffersList offers={props.result}></OffersList>
             </main>
         </>

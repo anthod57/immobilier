@@ -65,7 +65,7 @@ export const FormsContainer = styled.div`
         }
 
         .active {
-            border-bottom: 3px solid ${props => props.theme.green2};
+            border-bottom: 3px solid ${props => props.theme.green1};
         }
     }
 `

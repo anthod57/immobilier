@@ -7,9 +7,8 @@ export const Container = styled.div`
     margin: 1em auto;
     position: relative;
     height: 450px;
-    box-shadow: 1px 1px 1px black;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px 2px #00000080;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 0px #00000080;
     transition: all 0.5s;
     overflow: hidden;
 
@@ -54,10 +53,13 @@ export const Container = styled.div`
         height: 250px;
         display: flex;
         flex-direction: column;
+        cursor: pointer;
 
         h2{
-            text-align: center;
+            text-align: left;
+            font-family: 'roboto',sans-serif !important;
             font-weight: 500;
+            font-size: 1em;
             overflow: hidden;
             position: relative;
             text-overflow: ellipsis;
@@ -73,6 +75,35 @@ export const Container = styled.div`
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            .price {
+                color: ${props => props.theme.green1};
+            }
+
+            .city {
+                font-family: 'roboto',sans-serif !important;
+                font-weight: 300;
+            }
+
+            b {
+
+                svg {
+                    color: ${props => props.theme.green1};
+                    margin-right: 5px;
+                }
+            }
+
+            .left, .right {
+                b {
+                    margin: 5px;
+                }
+            }
+        }
+
+        hr {
+            width: 100%;
+            height: 1px;
+            background-color: #0000001a
         }
     }
 `

@@ -4,8 +4,11 @@ import { Hero } from '../components/Hero'
 import { MENU_ITEMS } from '../data/menu'
 import { About } from '../components/About'
 import { Services } from '../components/Services'
+import { FeaturedProperties } from '../components/FeaturedProperties'
+import { HOST } from '../data/config'
+import axios from 'axios';
 
-export default function Home() {
+export default function Home(props) {
   return (
     <>
       <Head>
@@ -17,10 +20,31 @@ export default function Home() {
       <Navbar menu={MENU_ITEMS} active={0}></Navbar>
 
       <main>
-        <Hero bg={"/images/hero.jpg"}></Hero>
+        {/* <Hero bg={"/images/hero.jpg"}></Hero>
         <About></About>
-        <Services></Services>
+        <Services></Services> */}
+        <Hero></Hero>
+        <FeaturedProperties title={"Nouvelles annonces (Ventes)"} data={props.result}></FeaturedProperties>
+        <About></About>
       </main>
     </>
   )
 }
+
+export async function getServerSideProps(ctx) {
+  const res = await axios.request({
+      method: "GET",
+      url: `${HOST}/api/offers`,
+      data: {
+          getBy: "offerType",
+          value: "buy",
+          limit: 4
+      }
+  })
+
+  return {
+      props: {
+          result: res.data ? res.data : []
+      },
+  };
+};

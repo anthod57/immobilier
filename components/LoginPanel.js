@@ -5,8 +5,6 @@ import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import
 import useAuth from '../firebase/auth'
 
 export const LoginPanel = (props) => {
-
-    const [form, setForm] = useState(1);
     const [registerError, setRegisterError] = useState(null);
     const [loginError, setLoginError] = useState(null);
 
@@ -83,15 +81,15 @@ export const LoginPanel = (props) => {
         <Container>
             <Wrapper>
                 <div className="close">
-                    <FontAwesomeIcon onClick={() => props.setShow(false)} icon={solid('xmark')} />
+                    <FontAwesomeIcon onClick={() => props.setShow(-1)} icon={solid('xmark')} />
                 </div>
 
                 <FormsContainer>
                     <div className="header">
-                        <button className={form == 0 ? "active" : ""} onClick={() => setForm(0)}>Inscription</button>
-                        <button className={form == 1 ? "active" : ""} onClick={() => setForm(1)}>Connexion</button>
+                        <button className={props.show == 0 ? "active" : ""} onClick={() => props.setShow(0)}>Inscription</button>
+                        <button className={props.show == 1 ? "active" : ""} onClick={() => props.setShow(1)}>Connexion</button>
                     </div>
-                    <Form id="login" show={form == 1} onKeyDown={async (e) => e.code === "Enter" ? await loginUser() : null}>
+                    <Form id="login" show={props.show == 1} onKeyDown={async (e) => e.code === "Enter" ? await loginUser() : null}>
                         <input onChange={(e) => setLoginEmail(e.target.value)} type="email" className="input-text" placeholder="E-mail"></input>
                         <input onChange={(e) => setLoginPassword(e.target.value)} type="password" className="input-text" placeholder="Mot de passe"></input>
                         
@@ -99,7 +97,7 @@ export const LoginPanel = (props) => {
 
                         <button onClick={async () => await loginUser()}>Connexion</button>
                     </Form>
-                    <Form id="register" show={form == 0} onKeyDown={async (e) => e.code === "Enter" ? await registerUser() : null}>
+                    <Form id="register" show={props.show == 0} onKeyDown={async (e) => e.code === "Enter" ? await registerUser() : null}>
                         <input onChange={(e) => setRegisterLastName(e.target.value)} type="text" className="input-text" id="lastname" placeholder="Nom"></input>
                         <input onChange={(e) => setRegisterFirstName(e.target.value)} type="text" className="input-text" id="firstname" placeholder="Prénom"></input>
                         <input onChange={(e) => setRegisterEmail(e.target.value)} type="email" className="input-text" id="register-email" placeholder="E-mail"></input>
