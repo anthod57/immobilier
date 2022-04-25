@@ -11,6 +11,7 @@ import axios from 'axios';
 import { Testimony } from '../components/Testimony'
 import { TESTIMONY_ITEMS } from '../data/testimonies'
 import { Footer } from '../components/Footer'
+import qs from 'qs'
 
 export default function Home(props) {
   return (
@@ -24,9 +25,6 @@ export default function Home(props) {
       <Navbar menu={MENU_ITEMS} active={0}></Navbar>
 
       <main>
-        {/* <Hero bg={"/images/hero.jpg"}></Hero>
-        <About></About>
-        <Services></Services> */}
         <Hero searchBar={"advanced"} background={"/images/hero2.jpg"}></Hero>
         <FeaturedProperties title={"Dernières annonces (Ventes)"} data={props.result}></FeaturedProperties>
         <Services services={SERVICES_ITEMS}></Services>
@@ -42,16 +40,17 @@ export async function getServerSideProps(ctx) {
   const res = await axios.request({
       method: "GET",
       url: `${HOST}/api/offers`,
-      data: {
+      params: {
           getBy: "offerType",
           value: "buy",
           limit: 4
-      }
-  })
+      },
+      paramsSerializer: params => { return qs.stringify(params) }
+  }).then((response) => {return response.data}).catch((error) => { console.log(error); return null;})
 
   return {
       props: {
-          result: res.data ? res.data : []
+          result: res ? res : []
       },
   };
 };

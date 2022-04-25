@@ -33,7 +33,7 @@ const getSchema = {
         },
         optional: true
     },
-    limit: { type: "number", optional: true }
+    limit: { type: "any", optional: true }
 }
 const putSchema = {
     id: { type: "string" },
@@ -108,6 +108,7 @@ export default async function handler(req, res) {
 
         case 'GET': {
             const body = qs.parse(req.query);
+            
             if (v.validate(body, getSchema) !== true) {
                 return res.status(500).send("Invalid request");
             } else {
