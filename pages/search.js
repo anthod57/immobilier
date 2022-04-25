@@ -9,6 +9,7 @@ import { Hero } from '../components/Hero';
 import { clearProps, getProps, setProps } from '../redux/features/searchSlice';
 import { useSelector, useDispatch } from "react-redux";
 import qs from 'qs';
+import { Footer } from '../components/Footer';
 
 export default function Search(props) {
 
@@ -29,6 +30,8 @@ export default function Search(props) {
                 <Hero title={"Recherche"} searchBar={"advanced"} background={"/images/hero.jpg"} setOffers={setOffers}></Hero>
                 <OffersList offers={offers}></OffersList>
             </main> 
+
+            <Footer menu={MENU_ITEMS}></Footer>
         </>
     )
 }

@@ -4,7 +4,8 @@ export const Container = styled.footer`
     height: 100%;
     min-height: 80px;
     width: 100%;
-    background-color: ${props => props.theme.white};
+    background-color: ${props => props.theme.green1};
+    color: white;
     padding: 1em;
 `
 
