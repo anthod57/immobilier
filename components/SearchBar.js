@@ -1,43 +1,40 @@
 import React, { useState, useEffect } from 'react'
-import { Container } from '../styles/StyledSearchBar'
-import AsyncSelect from 'react-select/async';
+import { Container, Wrapper } from '../styles/StyledSearchBar'
 import Select from 'react-select'
+import AsyncSelect from 'react-select/async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { db } from '../firebase/config'
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
-import { useRouter } from 'next/router'
+import { PROPERTY_TYPE, OFFER_TYPE } from '../data/select';
 import { clearProps, getProps, setProps } from '../redux/features/searchSlice';
 import { useSelector, useDispatch } from "react-redux";
-import { PROPERTY_TYPE, OFFER_TYPE } from '../data/select';
+import { useRouter } from 'next/router'
 
-export const SearchBar = (props) => {
+export const SearchBar = () => {
     const searchProps = useSelector(getProps);
     const dispatch = useDispatch();
-
-    const locationSelectRef = React.createRef();
     const router = useRouter();
 
     const [cities, setCities] = useState([]);
-    const [offerType, setOfferType] = useState(null);
+    const [offerType, setOfferType] = useState(0);
     const [propertyType, setPropertyType] = useState(null);
     const [location, setLocation] = useState(null);
-    const [maxBudget, setMaxBudget] = useState(0);
-    const [minSurface, setMinSurface] = useState(0);
+
+    const locationSelectRef = React.createRef();
 
     const search = () => {
-        const url = `/search?offerType=${offerType}&propertyType=${propertyType}&location=${location}&maxBudget=${maxBudget}&minSurface=${minSurface}`;
+        const url = `/search?offerType=${offerType == 0 ? "buy" : "rent"}&propertyType=${propertyType == 0 ? "appartment" : "house"}&location=${location}`;
         router.push(url);
     }
 
-    // Dynamically get and return cities from firestore based on user input on the location select component
     const getCities = async () => {
         const input = locationSelectRef.current.inputRef.value;
 
         if (input.length > 0) {
             const q = query(collection(db, "cities"), where("name", ">", input.toUpperCase()), limit(8));
             const data = [];
-            
+
             getDocs(q).then((e) => {
                 e.docs.map((doc) => {
                     data.push({ value: doc.data().name.toLowerCase().replace(" ", "-"), label: doc.data().name });
@@ -49,53 +46,33 @@ export const SearchBar = (props) => {
             });
 
             return data;
-        } 
+        }
 
         return [];
     }
 
     // Manually set states based on redux because defaultValue prop doesn't call onChange event
     useEffect(() => {
-        setOfferType(searchProps.props.offerType > -1 ? OFFER_TYPE[searchProps.props.offerType].value : null);
-        setPropertyType(searchProps.props.propertyType > -1 ? PROPERTY_TYPE[searchProps.props.propertyType].value : null);
+        setOfferType(searchProps.props.offerType > -1 ? searchProps.props.offerType : 0);
+        setPropertyType(searchProps.props.propertyType);
         setLocation(searchProps.props.location ? searchProps.props.location.value : null);
-        setMaxBudget(searchProps.props.maxBudget > -1 ? searchProps.props.maxBudget : 0);
-        setMinSurface(searchProps.props.minSurface > -1 ? searchProps.props.minSurface : 0);
     }, [searchProps])
 
     return (
         <Container>
-            <div className="row">
-                <label htmlFor="offer-type">{"Type d'offre:"}</label>
-                <Select defaultValue={OFFER_TYPE[searchProps.props.offerType]} id="offer-type" className="react-select" classNamePrefix="react-select" placeholder="Type d'offre" onChange={(e) => dispatch(setProps({offerType: OFFER_TYPE.findIndex(x => x.value == e.value)}))}
-                    options={OFFER_TYPE} />
-            </div>
-
-            <div className="row">
-                <label htmlFor="property-type">Type de bien:</label>
-                <Select defaultValue={PROPERTY_TYPE[searchProps.props.propertyType]} id="property-type" className="react-select" classNamePrefix="react-select" placeholder="Type de bien" onChange={(e) => dispatch(setProps({propertyType: PROPERTY_TYPE.findIndex(x => x.value == e.value)}))}
-                    options={PROPERTY_TYPE} />
-            </div>
-
-            <div className="row">
-                <label htmlFor="location">Localisation:</label>
-                <AsyncSelect ref={locationSelectRef} defaultValue={searchProps.props.location || null} onChange={(e) => dispatch(setProps({location: e}))} id="location" className="react-select" classNamePrefix="react-select" placeholder="Localisation" loadOptions={async () => await getCities()} />
-            </div>
-
-            <div className="row">
-                <label htmlFor="max-budget">Budget max (€):</label>
-                <input id="max-budget" defaultValue={searchProps.props.maxBudget || 0} onChange={(e) => dispatch(setProps({maxBudget: +e.target.value}))} className="input-text" type="tel" min="1" step="1" />
-            </div>
-
-            <div className="row">
-                <label htmlFor="min-surface">Surface min (m²):</label>
-                <input id="min-surface" defaultValue={searchProps.props.minSurface || 0} onChange={(e) => dispatch(setProps({minSurface: +e.target.value}))} className="input-text" type="tel" min="1" step="1" />
-            </div>
-
-            <div className="row">
-                <br />
-                <button onClick={() => search()}><FontAwesomeIcon icon={solid('search')} />Rechercher</button>
-            </div>
+            <Wrapper>
+                <div className="header">
+                    <button className={offerType === 0 ? "active" : ""} onClick={(e) => dispatch(setProps({offerType: 0}))}>Acheter</button>
+                    <button className={offerType === 1 ? "active" : ""} onClick={(e) => dispatch(setProps({offerType: 1}))}>Louer</button>
+                </div>
+                <div className="search-container">
+                    <div className="selects">
+                        <AsyncSelect defaultValue={searchProps.props.location || null} onChange={(e) => dispatch(setProps({ location: e }))} ref={locationSelectRef} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} id="property-type" className="react-select" classNamePrefix="react-select" placeholder="Emplacement..." loadOptions={async () => await getCities()} />
+                        <Select defaultValue={PROPERTY_TYPE[searchProps.props.propertyType]} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} id="property-type" className="react-select" classNamePrefix="react-select" placeholder="Type de bien" options={PROPERTY_TYPE} onChange={(e) => dispatch(setProps({ propertyType: PROPERTY_TYPE.findIndex(x => x.value == e.value) }))} />
+                    </div>
+                    <button onClick={() => search()}><FontAwesomeIcon icon={solid('search')} />Rechercher</button>
+                </div>
+            </Wrapper>
         </Container>
     )
 }

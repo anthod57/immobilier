@@ -14,9 +14,6 @@ export const OffersList = (props) => {
 
     return (
         <Container>
-            <div className="header">
-                <SearchBar></SearchBar>
-            </div>
             <Wrapper>
                 {props.offers.length > 0 ? props.offers.map((item, index) => {
                     return (

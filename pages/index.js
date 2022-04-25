@@ -27,7 +27,7 @@ export default function Home(props) {
         {/* <Hero bg={"/images/hero.jpg"}></Hero>
         <About></About>
         <Services></Services> */}
-        <Hero></Hero>
+        <Hero searchBar={"advanced"} background={"/images/hero2.jpg"}></Hero>
         <FeaturedProperties title={"Dernières annonces (Ventes)"} data={props.result}></FeaturedProperties>
         <Services services={SERVICES_ITEMS}></Services>
         <Testimony testimonies={TESTIMONY_ITEMS}></Testimony>

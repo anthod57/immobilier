@@ -54,7 +54,7 @@ export const Navbar = (props) => {
         <Container scrollOffset={scrollOffset} show={showMobileMenu}>
             <Wrapper>
                 <div className="logo">
-                    <h2>Logo</h2>
+                    <Link href="/"><a><h2>Logo</h2></a></Link>
                 </div>
                 <div className="menu">
                     <div className="left">

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Head from 'next/head'
 import { Navbar } from '../components/Navbar';
 import { OffersList } from '../components/OffersList'
@@ -6,8 +6,15 @@ import { MENU_ITEMS } from '../data/menu';
 import axios from 'axios';
 import { HOST } from '../data/config';
 import { Hero } from '../components/Hero';
+import { clearProps, getProps, setProps } from '../redux/features/searchSlice';
+import { useSelector, useDispatch } from "react-redux";
+import qs from 'qs';
 
 export default function Search(props) {
+
+    const searchProps = useSelector(getProps);
+    const [offers, setOffers] = useState([]);
+
     return (
         <>
             <Head>
@@ -19,38 +26,9 @@ export default function Search(props) {
             <Navbar menu={MENU_ITEMS}></Navbar>
 
             <main>
-              
-                <OffersList offers={props.result}></OffersList>
-            </main>
+                <Hero title={"Recherche"} searchBar={"advanced"} background={"/images/hero.jpg"} setOffers={setOffers}></Hero>
+                <OffersList offers={offers}></OffersList>
+            </main> 
         </>
     )
 }
-
-export async function getServerSideProps(ctx) {
-    const { offerType, propertyType, location, maxBudget, minSurface } = ctx.query;
-
-    const res = await axios.request({
-        method: "GET",
-        url: `${HOST}/api/offers`,
-        data: {
-            getBy: "offerType",
-            value: offerType,
-            filters: [
-                {
-                    filterBy: "city",
-                    value: location
-                },
-                {
-                    filterBy: "propertyType",
-                    value: propertyType
-                }
-            ]
-        }
-    })
-
-    return {
-        props: {
-            result: res.data ? res.data : []
-        },
-    };
-};

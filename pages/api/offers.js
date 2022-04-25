@@ -1,6 +1,7 @@
 import { app, db } from "../../firebase/config";
 import { doc, orderBy, deleteDoc, collection, getDoc, addDoc, query, where, getDocs, setDoc, limit, Timestamp } from "firebase/firestore";
 import Validator from "fastest-validator";
+import qs from 'qs'
 
 const postSchema = {
     title: { type: "string" },
@@ -106,11 +107,12 @@ export default async function handler(req, res) {
         }
 
         case 'GET': {
-            if (v.validate(req.body, getSchema) !== true) {
+            const body = qs.parse(req.query);
+            if (v.validate(body, getSchema) !== true) {
                 return res.status(500).send("Invalid request");
             } else {
-                if (req.body.getBy === "id") { // Get an offer by ID
-                    const docRef = doc(db, "offers", req.body.value);
+                if (body.getBy === "id") { // Get an offer by ID
+                    const docRef = doc(db, "offers", body.value);
 
                     return new Promise((resolve, object) => {
                         getDoc(docRef).then((doc) => {
@@ -123,15 +125,13 @@ export default async function handler(req, res) {
                         });
                     })
                 } else { // Get offers based on filters: Offer type (required), Property type, City
-                    let byPropertyType = req.body.filters?.find(x => x.filterBy == "propertyType");
-                    let byCity = req.body.filters?.find(x => x.filterBy == "city");
-
-
+                    let byPropertyType = body.filters?.find(x => x.filterBy == "propertyType");
+                    let byCity = body.filters?.find(x => x.filterBy == "city");
                     const q = query(collection(db, "offers"),
-                        where("offerType", "==", req.body.value),
-                        byPropertyType ? where("propertyType", "==", byPropertyType.value) : where("offerType", "==", req.body.value),
-                        byCity ? where("city", "==", byCity.value) : where("offerType", "==", req.body.value),
-                        limit(req.body.limit > 0 ? req.body.limit : 9999),
+                        where("offerType", "==", body.value),
+                        byPropertyType ? where("propertyType", "==", byPropertyType.value) : where("offerType", "==", body.value),
+                        byCity ? where("city", "==", byCity.value) : where("offerType", "==", body.value),
+                        limit(body.limit > 0 ? body.limit : 9999),
                         orderBy("date", "desc"));
 
                     return new Promise((resolve, object) => {
@@ -141,7 +141,6 @@ export default async function handler(req, res) {
                             e.docs.map((doc) => {
                                 offers.push(doc.data());
                             });
-
                             res.status(200).json(offers);
                             resolve();
                         }).catch((error) => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Wrapper, TestimonyItem } from '../styles/StyledTestimony'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,10 +7,11 @@ import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import
 export const Testimony = (props) => {
 
     const [current, setCurrent] = useState(0);
+    const [seconds, setSeconds] = useState(0);
 
     const changeTestimony = (direction) => {
         let currentIndex = current;
-
+        setSeconds(0);
         if (direction == 1) {
             if (currentIndex + 1 >= props.testimonies.length) {
                 setCurrent(0);
@@ -25,6 +26,18 @@ export const Testimony = (props) => {
             }
         }
     }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSeconds(prevCount => prevCount + 1);
+
+            if(seconds > 4){
+                changeTestimony(1);
+            }
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [seconds])
 
     return (
         <Container>
