@@ -25,7 +25,7 @@ export default function Home(props) {
       <Navbar menu={MENU_ITEMS} active={0}></Navbar>
 
       <main>
-        <Hero searchBar={"advanced"} background={"/images/hero2.jpg"}></Hero>
+        <Hero searchBar={"basic"} background={"/images/hero2.jpg"}></Hero>
         <FeaturedProperties title={"Dernières annonces (Ventes)"} data={props.result}></FeaturedProperties>
         <Services services={SERVICES_ITEMS}></Services>
         <Testimony testimonies={TESTIMONY_ITEMS}></Testimony>
