@@ -11,7 +11,7 @@ export const Footer = (props) => {
                         if(item.side !== "bottom") return;
 
                         return(
-                            <Link href={item.link}><a><li>{item.text}</li></a></Link>
+                            <Link key={index} href={item.link}><a><li>{item.text}</li></a></Link>
                         )
                     }) : ""}
                 </ul>
