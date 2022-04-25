@@ -161,4 +161,12 @@ export const GlobalStyle = createGlobalStyle`
             background-color: #42aea2;
         }
     }
+
+    ::-webkit-file-upload-button {
+        background: transparent;
+        border: none;
+        font-style: italic;
+        font-weight: 500;
+        padding: 1em;
+    }
 `;

@@ -84,7 +84,8 @@ export const Wrapper = styled.div`
         }
     }
 
-    @media only screen and (min-width: 768px){
+
+    @media only screen and (min-width: 920px){
         justify-content: unset;
         box-shadow: inset 0 -1px 0 0 #ffffff40;
 
@@ -106,7 +107,7 @@ export const MobileMenuButton = styled.div`
         height: auto;
     }
 
-    @media only screen and (min-width: 768px){
+    @media only screen and (min-width: 920px){
         display: none;
     }
 `
@@ -144,7 +145,7 @@ export const MobileMenu = styled.div`
         }
     }
 
-    @media only screen and (min-width: 768px){
+    @media only screen and (min-width: 920px){
         display: none;
     }
 `;

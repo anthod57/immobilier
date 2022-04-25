@@ -1,6 +1,7 @@
 export const MENU_ITEMS = [
     {
         text: "Accueil",
+        id: "nav-home",
         link: "/",
         side: "left",
         showIfLogged: true,
@@ -8,6 +9,7 @@ export const MENU_ITEMS = [
     },
     {
         text: "Vendre",
+        id: "nav-vendre",
         link: "/",
         side: "left",
         showIfLogged: true,
@@ -15,6 +17,7 @@ export const MENU_ITEMS = [
     },
     {
         text: "Acheter",
+        id: "nav-acheter",
         link: "/",
         side: "left",
         showIfLogged: true,
@@ -22,13 +25,7 @@ export const MENU_ITEMS = [
     },
     {
         text: "Louer",
-        link: "/",
-        side: "left",
-        showIfLogged: true,
-        hideIfNotLogged: false
-    },
-    {
-        text: "Contact",
+        id: "nav-louer",
         link: "/",
         side: "left",
         showIfLogged: true,
@@ -36,6 +33,7 @@ export const MENU_ITEMS = [
     },
     {
         text: "Connexion",
+        id: "nav-connexion",
         link: "login",
         side: "right",
         showIfLogged: false,
@@ -43,13 +41,23 @@ export const MENU_ITEMS = [
     },
     {
         text: "Inscription",
+        id: "nav-inscription",
         link: "register",
         side: "right",
         showIfLogged: false,
         hideIfNotLogged: false
     },
     {
+        text: "Ajouter une annonce",
+        id: "nav-ajouter-une-annonce",
+        link: "/ajouter-une-annonce",
+        side: "right",
+        showIfLogged: true,
+        hideIfNotLogged: true
+    },
+    {
         text: "Mon Compte",
+        id: "nav-mon-compte",
         link: "/",
         side: "right",
         showIfLogged: true,

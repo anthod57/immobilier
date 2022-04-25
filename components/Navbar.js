@@ -47,7 +47,7 @@ export const Navbar = (props) => {
             return (<a onClick={() => { setShowLoginForm(0) }} key={`navItem-${index}`} className={props.active == index ? "active" : ""}><li>{item.text}</li></a>)
         }
 
-        return (<Link key={`navItem-${index}`} href={item.link}><a className={props.active == index ? "active" : ""}><li>{item.text}</li></a></Link>)
+        return (<Link key={`navItem-${index}`} href={item.link}><a className={props.active == item.id ? "active" : ""}><li>{item.text}</li></a></Link>)
     })
 
     return (

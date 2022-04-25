@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { Navbar } from '../components/Navbar'
 import { Hero } from '../components/Hero'
 import { MENU_ITEMS } from '../data/menu'
-import { About } from '../components/About'
 import { Services } from '../components/Services'
 import { FeaturedProperties } from '../components/FeaturedProperties'
 import { HOST } from '../data/config'
@@ -22,10 +21,10 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar menu={MENU_ITEMS} active={0}></Navbar>
+      <Navbar menu={MENU_ITEMS} active={"nav-home"}></Navbar>
 
       <main>
-        <Hero searchBar={"basic"} background={"/images/hero2.jpg"}></Hero>
+        <Hero searchBar={"basic"} title={"Title"} subtitle={"Lorem ipsum dolor sit amet consectetur, adipisicing elit."} background={"/images/hero2.jpg"}></Hero>
         <FeaturedProperties title={"Dernières annonces (Ventes)"} data={props.result}></FeaturedProperties>
         <Services services={SERVICES_ITEMS}></Services>
         <Testimony testimonies={TESTIMONY_ITEMS}></Testimony>
