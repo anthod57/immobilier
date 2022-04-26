@@ -31,7 +31,7 @@ export const Navbar = (props) => {
     }, [])
 
     const menuFilter = (filter) => props.menu.map((item, index) => {
-        if (filter && item.side !== filter.side) return;
+        if (filter && item.side !== filter.side || item.side == "bottom") return;
         if (!item.showIfLogged && user.user) return; // If user is logged in and link should not be showed in this case
         if (item.hideIfNotLogged && !user.user) return; // If user is not logged in and link requires it 
 

@@ -1,21 +1,21 @@
 import styled from "styled-components";
 
 export const Container = styled.section`
-    height: ${props => props.height.mobile ? props.height.mobile : "100vh"};
+    height: ${props => props.height ? props.height.mobile : "100vh"};
     width: 100%;
 
     .hero-background {
         position: absolute;
-        height: ${props => props.height.mobile ? props.height.mobile : "100vh"};
+        height: ${props => props.height ? props.height.mobile : "100vh"};
         width: 100%;
         filter: brightness(0.75);
     }
 
     @media only screen and (min-width: 768px){
-        height: ${props => props.height.desktop ? props.height.desktop : "600px"};
+        height: ${props => props.height ? props.height.desktop : "600px"};
 
         .hero-background {
-            height: ${props => props.height.desktop ? props.height.desktop : "600px"};
+            height: ${props => props.height ? props.height.desktop : "600px"};
         }
     }
 `
@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
     color: white;
     position: absolute;
     width: 100%;
-    height: ${props => props.height.mobile ? props.height.mobile : "100vh"};
+    height: ${props => props.height ? props.height.mobile : "100vh"};
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,6 +46,6 @@ export const Wrapper = styled.div`
     }
 
     @media only screen and (min-width: 768px){
-        height: ${props => props.height.desktop ? props.height.desktop : "600px"};
+        height: ${props => props.height ? props.height.desktop : "600px"};
     }
 `

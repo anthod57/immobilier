@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.nav`
     background-color: ${props => props.scrollOffset > 0 || props.show == true ? "white" : "transparent"};
-    color: ${props => props.scrollOffset > 0 || props.show == true ? props.theme.green1 : "white"};
+    color: ${props => props.scrollOffset > 0 || props.show == true ? props.theme.green1 : "white"} !important;
     width: 100%;
     height: 80px;
     position: fixed;
@@ -116,7 +116,7 @@ export const MobileMenu = styled.div`
     margin-top: 80px;
     right: ${props => props.show ? "0px" : "-60%"};
     width: 60%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 80px);
     background-color: ${props => props.show ? "white" : ""};
     transition: all 0.3s ease-in-out;
     top: 0;
