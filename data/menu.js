@@ -56,9 +56,9 @@ export const MENU_ITEMS = [
         hideIfNotLogged: true
     },
     {
-        text: "Mon Compte",
+        text: "Mon compte",
         id: "nav-mon-compte",
-        link: "/",
+        link: "/mon-compte",
         side: "right",
         showIfLogged: true,
         hideIfNotLogged: true

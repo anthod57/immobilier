@@ -51,10 +51,10 @@ export function AuthProvider(props) {
     }
 
     const register = async (data) => {
-        return new Promise((resolve, object) => {
-            createUserWithEmailAndPassword(auth, data.email, data.password).then((userCredential) => {
+        return new Promise(async(resolve, object) => {
+            createUserWithEmailAndPassword(auth, data.email, data.password).then(async (userCredential) => {
                 if(userCredential){
-                    updateProfile(userCrendential, {displayName: data.firstName });
+                    await updateProfile(userCrendential, {displayName: data.firstName });
                 }
                 resolve();
             }).catch((error) => {

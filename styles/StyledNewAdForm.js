@@ -40,7 +40,6 @@ export const Form = styled.div`
         max-width: 100%;
         margin-bottom: 0.5em;
         max-width: 500px;
-        z-index: 5;
     }
 
     .react-select__control {
@@ -57,6 +56,7 @@ export const Form = styled.div`
     .react-select__menu {
         margin: 0;
         border-radius: 0;
+        z-index: 5;
     }
 
     .input-text {
@@ -117,6 +117,11 @@ export const Form = styled.div`
             }
         }
     }
+
+    button{
+        max-width: 500px;
+        margin-bottom: 0.5em;
+    } 
 
     @media only screen and (min-width: 768px){
         max-width: 500px;

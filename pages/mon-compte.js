@@ -3,12 +3,12 @@ import { useEffect } from 'react'
 import { Navbar } from '../components/Navbar'
 import { MENU_ITEMS } from '../data/menu'
 import { Footer } from '../components/Footer'
-import { NewAdForm } from '../components/NewAdForm'
 import { getUser } from "../redux/features/userSlice";
 import { useSelector } from "react-redux";
 import { useRouter } from 'next/router'
+import { Hero } from '../components/Hero'
 
-export default function AjouterUneAnnonce(props) {
+export default function MonCompte(props) {
 
   const user = useSelector(getUser);
   const router = useRouter();
@@ -17,6 +17,7 @@ export default function AjouterUneAnnonce(props) {
     if(!user.user){
       router.replace("/");
     }
+    console.log(user.user);
   }, [])
 
 
@@ -32,7 +33,7 @@ export default function AjouterUneAnnonce(props) {
           <Navbar menu={MENU_ITEMS} active={"nav-ajouter-une-annonce"}></Navbar>
 
           <main>
-            <NewAdForm background={"/images/annonce_bg.jpg"} title={"Ajouter une annonce"}></NewAdForm>
+              <Hero height={{mobile: "300px", desktop: "500px"}} background={"/images/account_bg.jpg"} title={`Bonjour ${user.user.displayName}`}></Hero>
           </main>
 
           <Footer menu={MENU_ITEMS}></Footer>

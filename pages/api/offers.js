@@ -2,47 +2,7 @@ import { app, db } from "../../firebase/config";
 import { doc, orderBy, deleteDoc, collection, getDoc, addDoc, query, where, getDocs, setDoc, limit, Timestamp } from "firebase/firestore";
 import Validator from "fastest-validator";
 import qs from 'qs'
-
-const postSchema = {
-    title: { type: "string" },
-    offerType: { type: "string", enum: ["buy", "rent"] },
-    propertyType: { type: "string", enum: ["appartment", "house"] },
-    date: { type: "date", default: (schema, field, parent, context) => new Date() },
-    description: { type: "string" },
-    price: { type: "number" },
-    city: { type: "string" },
-    address: { type: "string" },
-    rooms: { type: "number" },
-    bedrooms: { type: "number" },
-    bathrooms: { type: "number" },
-    surface: { type: "number" },
-    land_surface: { type: "number" },
-    images: { type: "array", optional: true }
-}
-
-const getSchema = {
-    getBy: { type: "string", enum: ["id", "offerType"] },
-    value: { type: "string" },
-    filters: {
-        type: "array", items: {
-            type: "object",
-            props: {
-                filterBy: { type: "string" },
-                value: { type: "string" },
-            }
-        },
-        optional: true
-    },
-    limit: { type: "any", optional: true }
-}
-const putSchema = {
-    id: { type: "string" },
-    offer: { type: "object", props: postSchema }
-}
-
-const deleteSchema = {
-    id: { type: "string" }
-}
+import { POST_SCHEMA, GET_SCHEMA, PUT_SCHEMA, DELETE_SCHEMA } from "../../data/schemas";
 
 const v = new Validator();
 
@@ -74,8 +34,7 @@ export default async function handler(req, res) {
 
                     offer.images = images;
 
-                    if (v.validate(offer, postSchema) !== true) {
-                        console.log(v.validate(offer, postSchema));
+                    if (v.validate(offer, POST_SCHEMA) !== true) {
                         return res.status(500).send("Invalid request");
                     } else {
                         addDoc(collection(db, "offers"), offer).then((doc) => {
@@ -89,7 +48,8 @@ export default async function handler(req, res) {
                     }
                 })
             } else {
-                if (v.validate(req.body, postSchema) !== true) {
+                if (v.validate(req.body, POST_SCHEMA) !== true) {
+                    console.log(v.validate(req.body, POST_SCHEMA))
                     return res.status(500).send("Invalid request");
                 } else {
                     return new Promise((resolve, object) => {
@@ -109,7 +69,7 @@ export default async function handler(req, res) {
         case 'GET': {
             const body = qs.parse(req.query);
             
-            if (v.validate(body, getSchema) !== true) {
+            if (v.validate(body, GET_SCHEMA) !== true) {
                 return res.status(500).send("Invalid request");
             } else {
                 if (body.getBy === "id") { // Get an offer by ID
@@ -125,7 +85,25 @@ export default async function handler(req, res) {
                             resolve();
                         });
                     })
-                } else { // Get offers based on filters: Offer type (required), Property type, City
+                } else if(body.getBy === "user") { // Get offers by user ID
+                    const q = query(collection(db, "offers"), where("postedBy", "==", body.value), limit(body.limit > 0 ? body.limit : 9999), orderBy("date", "desc"));
+
+                    return new Promise((resolve, object) => {
+                        getDocs(q).then((e) => {
+                            let offers = [];
+
+                            e.docs.map((doc) => {
+                                offers.push(doc.data());
+                            });
+                            res.status(200).json(offers);
+                            resolve();
+                        }).catch((error) => {
+                            console.log(error);
+                            res.status(500).json(error);
+                            resolve();
+                        });
+                    })
+                }else { // Get offers based on filters: Offer type (required), Property type, City
                     let byPropertyType = body.filters?.find(x => x.filterBy == "propertyType");
                     let byCity = body.filters?.find(x => x.filterBy == "city");
                     const q = query(collection(db, "offers"),
@@ -155,7 +133,7 @@ export default async function handler(req, res) {
         }
 
         case 'PUT': {
-            if (v.validate(req.body, putSchema) !== true) {
+            if (v.validate(req.body, PUT_SCHEMA) !== true) {
                 return res.status(500).send("Invalid request");
             } else {
                 return new Promise((resolve, object) => {
@@ -172,7 +150,7 @@ export default async function handler(req, res) {
         }
 
         case 'DELETE': {
-            if (v.validate(req.body, deleteSchema) !== true) {
+            if (v.validate(req.body, DELETE_SCHEMA) !== true) {
                 return res.status(500).send("Invalid request");
             } else {
                 return new Promise((resolve, object) => {

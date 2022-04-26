@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['v.seloger.com'],
+    domains: ['v.seloger.com', 'firebasestorage.googleapis.com'],
     formats: ['image/avif', 'image/webp'],
   },
 }
