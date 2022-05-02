@@ -77,7 +77,11 @@ export default async function handler(req, res) {
 
                     return new Promise((resolve, object) => {
                         getDoc(docRef).then((doc) => {
-                            res.status(200).json({...doc.data(), id: doc.id});
+                            if(doc.exists()) {
+                                res.status(200).json({...doc.data(), id: doc.id});
+                            }else{
+                                res.status(404).json({});
+                            }
                             resolve();
                         }).catch((error) => {
                             console.log(error);
