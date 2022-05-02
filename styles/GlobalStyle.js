@@ -1,4 +1,7 @@
 import { createGlobalStyle } from "styled-components";
+import { config, dom } from "@fortawesome/fontawesome-svg-core";
+
+config.autoAddCss = false;
 
 export const Theme = {
     white: "#f9f9f9",
@@ -9,6 +12,8 @@ export const Theme = {
 }
 
 export const GlobalStyle = createGlobalStyle`
+    ${dom.css()}
+
     * {
         box-sizing: border-box;
         margin: 0; 

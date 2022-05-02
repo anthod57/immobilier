@@ -86,7 +86,6 @@ export const Container = styled.div`
             }
 
             b {
-
                 svg {
                     color: ${props => props.theme.green1};
                     margin-right: 5px;
@@ -96,6 +95,16 @@ export const Container = styled.div`
             .left, .right {
                 b {
                     margin: 5px;
+                }
+            }
+
+            .center {
+                b {
+                    margin: 2px;
+                }
+
+                svg {
+                    color: unset;
                 }
             }
         }

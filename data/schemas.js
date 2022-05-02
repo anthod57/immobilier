@@ -1,5 +1,6 @@
 export const POST_SCHEMA = {
     title: { type: "string" },
+    id: { type: "string", optional: true },
     offerType: { type: "string", enum: ["buy", "rent"] },
     propertyType: { type: "string", enum: ["appartment", "house"] },
     date: { type: "any", default: (schema, field, parent, context) => new Date() },

@@ -30,6 +30,8 @@ export const Wrapper = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-wrap: wrap;
+        text-align: center;
 
         a {
             padding: 0 1em;
@@ -44,5 +46,10 @@ export const Wrapper = styled.div`
 
     @media only screen and (min-width: 768px){
         flex-direction: row;
+
+        ul {
+            text-align: unset;
+            flex-wrap: nowrap;
+        }
     }
 `

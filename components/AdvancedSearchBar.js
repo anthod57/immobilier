@@ -56,7 +56,11 @@ export const AdvancedSearchBar = (props) => {
                     ]
                 },
                 paramsSerializer: params => { return qs.stringify(params) }
-            }).then((response) => {props.setOffers(filterData(response.data)); setCurrentOffers(response.data); setRefreshOffers(false); }).catch((error) => console.log(error));
+            }).then((response) => {
+                props.setOffers(filterData(response.data)); 
+                setCurrentOffers(response.data); 
+                setRefreshOffers(false); 
+            }).catch((error) => console.log(error));
         }else{
             props.setOffers(filterData(currentOffers));
         }

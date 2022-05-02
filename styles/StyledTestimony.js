@@ -65,4 +65,8 @@ export const TestimonyItem = styled.div`
         font-style: italic;
         font-weight: 600;
     }
+
+    @media only screen and (max-width: 400px){
+        font-size: 4vw;
+    }
 `

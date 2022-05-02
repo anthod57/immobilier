@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
+import React from 'react'
 import { Container,  Wrapper } from '../styles/StyledOffersList'
 import { Offer } from './Offer'
-import { SearchBar } from './SearchBar'
 
 export const OffersList = (props) => {
-
-    useEffect(() => {
-
-    }, [])
-
-
-
     return (
         <Container>
             <Wrapper>

@@ -77,7 +77,7 @@ export default async function handler(req, res) {
 
                     return new Promise((resolve, object) => {
                         getDoc(docRef).then((doc) => {
-                            res.status(200).json(doc.data());
+                            res.status(200).json({...doc.data(), id: doc.id});
                             resolve();
                         }).catch((error) => {
                             console.log(error);
@@ -93,8 +93,9 @@ export default async function handler(req, res) {
                             let offers = [];
 
                             e.docs.map((doc) => {
-                                offers.push(doc.data());
+                                offers.push({...doc.data(), id: doc.id});
                             });
+                            
                             res.status(200).json(offers);
                             resolve();
                         }).catch((error) => {
@@ -118,7 +119,7 @@ export default async function handler(req, res) {
                             let offers = [];
 
                             e.docs.map((doc) => {
-                                offers.push(doc.data());
+                                offers.push({...doc.data(), id: doc.id});
                             });
                             res.status(200).json(offers);
                             resolve();

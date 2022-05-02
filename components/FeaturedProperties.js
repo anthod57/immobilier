@@ -12,7 +12,7 @@ export const FeaturedProperties = (props) => {
             <hr />
             <h2>{props.title}</h2>
             <Wrapper>
-                {props.data.length > 0 ? props.data.map((item, index) => {
+                {props.data?.length > 0 ? props.data.map((item, index) => {
                     return (
                         <Offer key={index} data={item}></Offer>
                     )

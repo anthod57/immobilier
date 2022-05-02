@@ -3,8 +3,16 @@ import Image from 'next/image'
 import { Container } from '../styles/StyledOffer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { getUser } from "../redux/features/userSlice";
+import { useSelector } from "react-redux";
+import { HOST } from '../data/config'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 export const Offer = (props) => {
+
+    const user = useSelector(getUser);
+    const router = useRouter();
 
     function formatPrice(price) {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -39,6 +47,18 @@ export const Offer = (props) => {
         }
     }
 
+    const deleteOffer = (id) => {
+        axios.request({
+            method: "DELETE",
+            url: `${HOST}/api/offers`,
+            data: {
+                id: id
+            }
+        }).then(() => {
+            router.reload();
+        }).catch((error) => setError(error.code))
+    }
+
     return (
         <Container>
             <div className="image-container">
@@ -69,6 +89,13 @@ export const Offer = (props) => {
                     <div className="left">
                         <b><FontAwesomeIcon icon={solid('ruler-combined')} />{props.data.surface} m²</b>
                     </div>
+                    {user.user && user.user.uid === props.data.postedBy ? (
+                        <div className="center">
+                            <b style={{color: "#4cb8ac"}}><FontAwesomeIcon icon={solid('edit')} /></b>
+                            <b style={{color: "red"}} onClick={() => deleteOffer(props.data.id)}><FontAwesomeIcon icon={solid('trash')} /></b>
+                            {console.log(props.data)}
+                        </div>
+                    ) : ""}
 
                     <div className="right">
                         <b><FontAwesomeIcon icon={solid('bed')} />{props.data.bedrooms}</b>
