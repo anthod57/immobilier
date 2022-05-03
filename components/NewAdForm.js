@@ -134,11 +134,7 @@ export const NewAdForm = (props) => {
             setOfferData({postedBy: user.user.uid}); 
         }
     }, [])
-
-    useEffect(() => {
-        console.log(offerData);
-    }, [offerData])
-
+    
     return (
         <Container>
             <div className="background">
