@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { HOST } from '../data/config'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 export const Offer = (props) => {
 
@@ -91,7 +92,7 @@ export const Offer = (props) => {
                     </div>
                     {user.user && user.user.uid === props.data.postedBy ? (
                         <div className="center">
-                            <b style={{color: "#4cb8ac"}}><FontAwesomeIcon icon={solid('edit')} /></b>
+                            <Link href={`/modifier-annonce/${props.data.id}`}><a><b style={{color: "#4cb8ac"}}><FontAwesomeIcon icon={solid('edit')} /></b></a></Link>
                             <b style={{color: "red"}} onClick={() => deleteOffer(props.data.id)}><FontAwesomeIcon icon={solid('trash')} /></b>
                             {console.log(props.data)}
                         </div>

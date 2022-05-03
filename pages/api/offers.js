@@ -138,6 +138,7 @@ export default async function handler(req, res) {
         }
 
         case 'PUT': {
+            console.log(req.body);
             if (v.validate(req.body, PUT_SCHEMA) !== true) {
                 return res.status(500).send("Invalid request");
             } else {
