@@ -13,6 +13,7 @@ import { getUser } from "../redux/features/userSlice";
 import { HOST } from '../data/config'
 import { useSelector } from "react-redux";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { useRouter } from 'next/router'
 
 export const NewAdForm = (props) => {
 
@@ -23,6 +24,7 @@ export const NewAdForm = (props) => {
 
     const v = new Validator();
     const user = useSelector(getUser);
+    const router = useRouter();
 
     const [cities, setCities] = useState([]);
     const locationSelectRef = React.createRef();
@@ -98,7 +100,7 @@ export const NewAdForm = (props) => {
                             id: postID,
                             offer: updatedOffer
                         }
-                    }).catch((error) => setError(error.code))
+                    }).then(() => {router.push("/mon-compte")}).catch((error) => setError(error.code))
                 }
             }).catch((error) => setError(error.code));
         }
@@ -134,7 +136,7 @@ export const NewAdForm = (props) => {
             setOfferData({postedBy: user.user.uid}); 
         }
     }, [])
-    
+
     return (
         <Container>
             <div className="background">
