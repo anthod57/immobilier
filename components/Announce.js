@@ -54,6 +54,8 @@ export const Announce = (props) => {
                         </div>
                         <div className="row">
                             <span><FontAwesomeIcon icon={solid('bed')} />{props.data.bedrooms}</span>
+                        </div>
+                        <div className="row">
                             <span><FontAwesomeIcon icon={solid('bath')} />{props.data.bathrooms}</span>
                         </div>
                         <p className="description">{props.data.description}</p>

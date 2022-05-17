@@ -20,9 +20,13 @@ export const Wrapper = styled.div`
 
 export const AnnounceContainer = styled.div`
     margin: 1em;
+    margin-bottom: 0;
     width: 100%;
     max-width: 1100px;
     height: 100%;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
 
     .image-container {
         width: 100%;
@@ -30,7 +34,7 @@ export const AnnounceContainer = styled.div`
         position: relative;
         display: flex;
         background-color: white;
-        
+
 
         img {
             transition: all 0.5s;
@@ -55,10 +59,11 @@ export const AnnounceContainer = styled.div`
     }
 
     .informations {
-        text-align: left;
+        text-align: center;
         padding: 1em;
         background-color: white;
-        border-radius: 5px;
+        height: 100%;
+        flex-grow: 1;
 
         h2 {
             margin: 0.5rem 0;
@@ -73,6 +78,7 @@ export const AnnounceContainer = styled.div`
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
         }
 
         span {
@@ -88,6 +94,10 @@ export const AnnounceContainer = styled.div`
     @media only screen and (min-width: 768px){
         .image-container {
             height: 500px;
+        }
+
+        .informations {
+            text-align: left;
         }
     } 
 `
