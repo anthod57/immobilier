@@ -3,10 +3,6 @@ import { Container, Wrapper } from '../styles/StyledFeaturedProperties'
 import { Offer } from "./Offer"
 
 export const FeaturedProperties = (props) => {
-
-    useEffect(() => {
-        console.log(props.data);
-    }, [])
     return (
         <Container>
             <hr />

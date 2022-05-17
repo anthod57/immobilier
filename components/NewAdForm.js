@@ -19,7 +19,7 @@ export const NewAdForm = (props) => {
 
     const [offerData, setOfferData] = useState({});
     const [images, setImages] = useState([]);
-    const [postID, setPostID] = useState(null);
+    let postID;
     const [error, setError] = useState(null);
 
     const v = new Validator();
@@ -40,9 +40,9 @@ export const NewAdForm = (props) => {
             }).then(async (response) => { // Upload images and add them to the offer once we have the offer ID
                 let urls = [];
                 let updatedOffer = offerData;
-
+                postID = response.data.id;
+                
                 if (images.length > 0) {
-                    const postID = response.data.id;
 
                     for (let i = 0; i < images.length; i++) {
                         const imageRef = ref(storage, `uploads/offers/${postID}/${images[i].name}`);
@@ -60,9 +60,11 @@ export const NewAdForm = (props) => {
                             id: postID,
                             offer: updatedOffer
                         }
-                    }).catch((error) => setError(error.code))
+                    }).catch((error) => setError(error.code));
                 }
-            }).catch((error) => setError(error.code));
+            }).catch((error) => setError(error.code)).then(() => {
+                router.push(`/annonces/${offerData.offerType == "buy" ? "achat" : "locations"}/${postID}`)
+            });
         }
     }
 
@@ -80,9 +82,9 @@ export const NewAdForm = (props) => {
             }).then(async (response) => { // Upload images and add them to the offer once we have the offer ID
                 let urls = [];
                 let updatedOffer = offerData;
+                postID = response.data.id;
 
                 if (images.length > 0) {
-                    const postID = response.data.id;
 
                     for (let i = 0; i < images.length; i++) {
                         const imageRef = ref(storage, `uploads/offers/${postID}/${images[i].name}`);
@@ -92,7 +94,6 @@ export const NewAdForm = (props) => {
                     }
 
                     updatedOffer.images = urls;
-
                     axios.request({
                         method: "PUT",
                         url: `${HOST}/api/offers`,
@@ -100,9 +101,11 @@ export const NewAdForm = (props) => {
                             id: postID,
                             offer: updatedOffer
                         }
-                    }).then(() => {router.push("/mon-compte")}).catch((error) => setError(error.code))
+                    }).catch((error) => setError(error.code))
                 }
-            }).catch((error) => setError(error.code));
+            }).catch((error) => setError(error.code)).then(() => {
+                router.push(`/annonces/${offerData.offerType == "buy" ? "achat" : "locations"}/${offerData.id}`)
+            });
         }
     }
 

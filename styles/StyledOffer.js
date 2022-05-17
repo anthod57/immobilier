@@ -12,6 +12,10 @@ export const Container = styled.div`
     transition: all 0.5s;
     overflow: hidden;
 
+    a {
+        text-decoration: none;
+    }
+
     &:hover {
         transform: scale(1.025);
     }

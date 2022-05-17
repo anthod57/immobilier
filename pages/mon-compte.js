@@ -19,7 +19,6 @@ export default function MonCompte(props) {
   const [offers, setOffers] = useState([]);
 
   useEffect(() => {
-    console.log(user);
     if (!user.user) {
       router.replace("/")
     } else {

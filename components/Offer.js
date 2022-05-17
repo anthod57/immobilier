@@ -74,38 +74,42 @@ export const Offer = (props) => {
                     <FontAwesomeIcon onClick={() => changeImage(1)} icon={solid('chevron-right')} />
                 </div>
             </div>
-            <div className="content">
-                <div className="row">
-                    <span>{formatPropertyType(props.data.propertyType)}</span>
-                    <b className="price">{formatPrice(props.data.price)}€</b>
-                </div>
-                
-                <h2>{props.data.title}</h2>
-
-                <div className="row">
-                    <span className="city">{props.data.city.toUpperCase()}</span>
-                </div>
-                <hr></hr>
-                <div className="row">
-                    <div className="left">
-                        <b><FontAwesomeIcon icon={solid('ruler-combined')} />{props.data.surface} m²</b>
-                    </div>
-                    {user.user && user.user.uid === props.data.postedBy ? (
-                        <div className="center">
-                            <Link href={`/modifier-annonce/${props.data.id}`}><a><b style={{color: "#4cb8ac"}}><FontAwesomeIcon icon={solid('edit')} /></b></a></Link>
-                            <b style={{color: "red"}} onClick={() => deleteOffer(props.data.id)}><FontAwesomeIcon icon={solid('trash')} /></b>
-                            {console.log(props.data)}
+            <Link href={`/annonces/${props.data.offerType == "buy" ? "achat" : "locations"}/${props.data.id}`}>
+                <a>
+                    <div className="content">
+                        <div className="row">
+                            <span>{formatPropertyType(props.data.propertyType)}</span>
+                            <b className="price">{formatPrice(props.data.price)}€</b>
                         </div>
-                    ) : ""}
 
-                    <div className="right">
-                        <b><FontAwesomeIcon icon={solid('bed')} />{props.data.bedrooms}</b>
-                        <b><FontAwesomeIcon icon={solid('bath')} />{props.data.bathrooms}</b>
+                        <h2>{props.data.title}</h2>
+
+                        <div className="row">
+                            <span className="city">{props.data.city.toUpperCase()}</span>
+                        </div>
+                        <hr></hr>
+                        <div className="row">
+                            <div className="left">
+                                <b><FontAwesomeIcon icon={solid('ruler-combined')} />{props.data.surface} m²</b>
+                            </div>
+                            {user.user && user.user.uid === props.data.postedBy ? (
+                                <div className="center">
+                                    <Link href={`/modifier-annonce/${props.data.id}`}><a><b style={{ color: "#4cb8ac" }}><FontAwesomeIcon icon={solid('edit')} /></b></a></Link>
+                                    <b style={{ color: "red" }} onClick={() => deleteOffer(props.data.id)}><FontAwesomeIcon icon={solid('trash')} /></b>
+                                    {console.log(props.data)}
+                                </div>
+                            ) : ""}
+
+                            <div className="right">
+                                <b><FontAwesomeIcon icon={solid('bed')} />{props.data.bedrooms}</b>
+                                <b><FontAwesomeIcon icon={solid('bath')} />{props.data.bathrooms}</b>
+                            </div>
+                        </div>
+
+                        {/* <button>{"Plus d'informations"}</button> */}
                     </div>
-                </div>
-
-                {/* <button>{"Plus d'informations"}</button> */}
-            </div>
+                </a>
+            </Link>
         </Container>
     )
 }
