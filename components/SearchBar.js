@@ -24,6 +24,10 @@ export const SearchBar = () => {
     const locationSelectRef = React.createRef();
 
     const search = () => {
+        if(!offerType){
+            dispatch(setProps({offerType: 0}));
+        }
+
         const url = `/search?offerType=${offerType == 0 ? "buy" : "rent"}&propertyType=${propertyType == 0 ? "appartment" : "house"}&location=${location}`;
         router.push(url);
     }
