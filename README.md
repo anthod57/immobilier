@@ -26,7 +26,7 @@ Ce projet est développé sur Next.js (SEO, SSR, back-end NodeJS intégré). Le 
 
 Le système de recherche utilise Redux pour garder en mémoire les paramètres de recherche choisis par l'utilisateur, même s'il quitte ou rafraichit la page.
 
-Côté back-end, l'API gère les requêtes POST, GET, PUT et DELETE. (Le fichier data/schemas.js indique les différents paramètres à inclure dans chacun requête).
+Côté back-end, l'API gère les requêtes POST, GET, PUT et DELETE. (Le fichier data/schemas.js indique les différents paramètres à inclure dans chaque requête).
 
 - POST: Permet de créer une annonce par soi-même, mais également d'importer une annonce depuis le site https://seloger.com/.
 - GET: Permet de récupérer et lire une annonce ou des annonces par: son ID, l'ID de l'utilisateur, des filtres (Type d'offre, type de propriété, ville).
