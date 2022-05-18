@@ -31,7 +31,7 @@ export default function ModifierAnnonce(props) {
             <Navbar menu={MENU_ITEMS} active={"nav-acheter"}></Navbar>
 
             <main>
-              <Announce data={props.result}></Announce>
+                <Announce data={props.result}></Announce>
             </main>
 
             <Footer menu={MENU_ITEMS}></Footer>

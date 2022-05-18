@@ -47,18 +47,27 @@ export const Announce = (props) => {
                         </div>
                     </div>
                     <div className="informations">
-                        <h2>{props.data.title}</h2>
-                        <div className="row">
-                            <span>{props.data.price}€</span>
-                            <span>{props.data.surface} m²</span>
+                        <div className="description">
+                            <h2>{props.data.title}</h2>
+                            <p>{props.data.description}</p>
+                            <div className="buttons">
+                                <button>Téléphone</button>
+                                <button>E-mail</button>
+                            </div>
                         </div>
-                        <div className="row">
-                            <span><FontAwesomeIcon icon={solid('bed')} />{props.data.bedrooms}</span>
+
+                        <div className="features">
+                            <div className="row">
+                                <span className="price">{props.data.price}€</span>
+                                <span>{props.data.surface} m²</span>
+                            </div>
+                            <div className="row">
+                                <span><FontAwesomeIcon icon={solid('bed')} />{props.data.bedrooms}</span>
+                            </div>
+                            <div className="row">
+                                <span><FontAwesomeIcon icon={solid('bath')} />{props.data.bathrooms}</span>
+                            </div>
                         </div>
-                        <div className="row">
-                            <span><FontAwesomeIcon icon={solid('bath')} />{props.data.bathrooms}</span>
-                        </div>
-                        <p className="description">{props.data.description}</p>
                     </div>
                 </AnnounceContainer>
             </Wrapper>

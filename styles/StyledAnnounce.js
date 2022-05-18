@@ -33,8 +33,6 @@ export const AnnounceContainer = styled.div`
         height: 300px;
         position: relative;
         display: flex;
-        background-color: white;
-
 
         img {
             transition: all 0.5s;
@@ -59,35 +57,69 @@ export const AnnounceContainer = styled.div`
     }
 
     .informations {
+        margin-top: 1em;
         text-align: center;
-        padding: 1em;
-        background-color: white;
         height: 100%;
         flex-grow: 1;
-
-        h2 {
-            margin: 0.5rem 0;
-        }
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        justify-content: flex-end;
+        flex-direction: column-reverse;
+        padding: 0 1rem;
 
         .description {
             font-size: 0.9rem;
+            max-width: 800px;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 5px;
+            background-color: white;
+
+            p {
+                margin: 1rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            .buttons {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1em;
+            }
         }
 
-        .row {
-            margin: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
+        .features {
+            font-size: 0.9rem;
+            max-width: 800px;
+            padding: 1rem;
+            border-radius: 5px;
+            width: 100%;
+            background-color: white;
 
-        span {
-            font-weight: 600;
-            color: ${ props => props.theme.green1};
-        }
+            .price {
+                font-size: 1.5rem;
+            }
 
-        svg {
-            margin-right: 5px;
+            .row {
+                margin: 0.5rem 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+
+            span {
+                font-weight: 600;
+                color: ${ props => props.theme.green1};
+            }
+
+            svg {
+                margin-right: 5px;
+            }
         }
     }
 
@@ -97,7 +129,18 @@ export const AnnounceContainer = styled.div`
         }
 
         .informations {
+            padding: 0;
             text-align: left;
+            justify-content: space-between;
+            flex-direction: row;
         }
     } 
+
+    
+    @media only screen and (max-width: 1140px){
+        .informations {
+            padding: 0 1rem;
+        }
+    }
+
 `
