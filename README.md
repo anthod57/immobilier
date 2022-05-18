@@ -12,7 +12,7 @@
 ## À propos
 
 <details class="images">
-  <summary>Images</summary>
+  <summary>CLICK HERE TO SHOW IMAGES</summary>
   <img align="top" src="home_desktop.jpeg" name="Page d'accueil grands écrans">
   <img align="top" src="search_desktop.jpeg" name="Page de recherche grands écrans">
   <img align="top" src="home_mobile.jpeg" name="Page d'accueil petits écrans">
