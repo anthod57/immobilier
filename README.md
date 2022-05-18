@@ -17,7 +17,7 @@
   <img align="top" src="search_desktop.jpeg" name="Page de recherche grands écrans">
   <img align="top" src="home_mobile.jpeg" name="Page d'accueil petits écrans">
   <img align="top" src="search_mobile.jpeg" name="Page de recherche petits écrans">
-  <img align="top" src="speed_insight.jpg" name="Speed insight">
+  <img align="top" src="google_speed_insight.jpg" name="Speed insight">
 </details>
 
 Projet personnel de mise en place d'une application web d'annonces immobilières qui utilise une API avec les fonctionnalités de base (CRUD) pour ajouter, supprimer, modifier et obtenir une annonce.
