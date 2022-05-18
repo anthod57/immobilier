@@ -12,7 +12,7 @@
 ## À propos
 
 <details class="images">
-  <summary>Images</summary>
+  <summary>CLICK HERE TO SHOW IMAGES</summary>
   <img align="top" src="home_desktop.jpeg" name="Page d'accueil grands écrans">
   <img align="top" src="search_desktop.jpeg" name="Page de recherche grands écrans">
   <img align="top" src="home_mobile.jpeg" name="Page d'accueil petits écrans">
@@ -26,7 +26,7 @@ Ce projet est développé sur Next.js (SEO, SSR, back-end NodeJS intégré). Le 
 
 Le système de recherche utilise Redux pour garder en mémoire les paramètres de recherche choisis par l'utilisateur, même s'il quitte ou rafraichit la page.
 
-Côté back-end, l'API gère les requêtes POST, GET, PUT et DELETE. (Le fichier data/schemas.js indique les différents paramètres à inclure dans chacun requête).
+Côté back-end, l'API gère les requêtes POST, GET, PUT et DELETE. (Le fichier data/schemas.js indique les différents paramètres à inclure dans chaque requête).
 
 - POST: Permet de créer une annonce par soi-même, mais également d'importer une annonce depuis le site https://seloger.com/.
 - GET: Permet de récupérer et lire une annonce ou des annonces par: son ID, l'ID de l'utilisateur, des filtres (Type d'offre, type de propriété, ville).
