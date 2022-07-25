@@ -2,10 +2,6 @@
 <br />
 <div align="center">
   <h3 align="center">Site d'annonces immobilières</h3>
-
-  <p align="center">
-    URL: https://immobilier.anthonydragun.fr/
-  </p>
 </div>
 
 <!-- ABOUT THE PROJECT -->
