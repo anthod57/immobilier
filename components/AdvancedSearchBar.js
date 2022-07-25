@@ -35,8 +35,12 @@ export const AdvancedSearchBar = (props) => {
 
     // Request data from API if user changed any prop among: offer type, property type or city. If not, just filter offers from previous gathered offers to avoid useless requests.
     const fetchData = async () => {
-        if(refreshOffers){
+        if (refreshOffers) {
             const { offerType, propertyType, location } = searchProps.props;
+
+            if (!location) {
+                return;
+            }
 
             const res = await axios.request({
                 method: "GET",
@@ -57,11 +61,11 @@ export const AdvancedSearchBar = (props) => {
                 },
                 paramsSerializer: params => { return qs.stringify(params) }
             }).then((response) => {
-                props.setOffers(filterData(response.data)); 
-                setCurrentOffers(response.data); 
-                setRefreshOffers(false); 
+                props.setOffers(filterData(response.data));
+                setCurrentOffers(response.data);
+                setRefreshOffers(false);
             }).catch((error) => console.log(error));
-        }else{
+        } else {
             props.setOffers(filterData(currentOffers));
         }
     }
@@ -77,7 +81,7 @@ export const AdvancedSearchBar = (props) => {
         searchProps.props.maxSurface > 0 ? filters.push({ filterBy: "maxSurface", value: searchProps.props.maxSurface }) : null;
 
         filters.map((filter) => {
-            switch(filter.filterBy){
+            switch (filter.filterBy) {
                 case "minBudget":
                     filteredData = filteredData.filter(x => x.price >= filter.value);
                     break;
@@ -139,13 +143,13 @@ export const AdvancedSearchBar = (props) => {
         <Container>
             <Wrapper>
                 <div className="header">
-                    <button className={offerType === 0 ? "active" : ""} onClick={(e) => {dispatch(setProps({ offerType: 0 })); setRefreshOffers(true);}}>Acheter</button>
-                    <button className={offerType === 1 ? "active" : ""} onClick={(e) => {dispatch(setProps({ offerType: 1 })); setRefreshOffers(true);}}>Louer</button>
+                    <button className={offerType === 0 ? "active" : ""} onClick={(e) => { dispatch(setProps({ offerType: 0 })); setRefreshOffers(true); }}>Acheter</button>
+                    <button className={offerType === 1 ? "active" : ""} onClick={(e) => { dispatch(setProps({ offerType: 1 })); setRefreshOffers(true); }}>Louer</button>
                 </div>
                 <div className="search-container">
                     <div className="selects">
-                        <AsyncSelect defaultValue={searchProps.props.location || null} onChange={(e) => {dispatch(setProps({ location: e })); setRefreshOffers(true);}} ref={locationSelectRef} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} id="property-type" className="react-select" classNamePrefix="react-select" placeholder="Emplacement..." loadOptions={async () => await getCities()} />
-                        <Select defaultValue={PROPERTY_TYPE[searchProps.props.propertyType]} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} id="property-type" className="react-select" classNamePrefix="react-select" placeholder="Type de bien" options={PROPERTY_TYPE} onChange={(e) => {dispatch(setProps({ propertyType: PROPERTY_TYPE.findIndex(x => x.value == e.value) })); setRefreshOffers(true);}} />
+                        <AsyncSelect defaultValue={searchProps.props.location || null} onChange={(e) => { dispatch(setProps({ location: e })); setRefreshOffers(true); }} ref={locationSelectRef} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} id="property-type" className="react-select" classNamePrefix="react-select" placeholder="Emplacement..." loadOptions={async () => await getCities()} />
+                        <Select defaultValue={PROPERTY_TYPE[searchProps.props.propertyType]} components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }} id="property-type" className="react-select" classNamePrefix="react-select" placeholder="Type de bien" options={PROPERTY_TYPE} onChange={(e) => { dispatch(setProps({ propertyType: PROPERTY_TYPE.findIndex(x => x.value == e.value) })); setRefreshOffers(true); }} />
                         <div className="row">
                             <span className="price"><input onChange={(e) => dispatch(setProps({ minBudget: +e.target.value }))} defaultValue={searchProps.props.minBudget > 0 ? searchProps.props.minBudget : null} id="min-budget" className="input-text" type="number" min="0" step="100" placeholder={"Budget min."} /></span>
                             <span className="price"><input onChange={(e) => dispatch(setProps({ maxBudget: +e.target.value }))} defaultValue={searchProps.props.maxBudget > 0 ? searchProps.props.maxBudget : null} id="max-budget" className="input-text" type="number" min="0" step="100" placeholder={"Budget max."} /></span>

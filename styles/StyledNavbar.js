@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.nav`
-    background-color: ${props => props.scrollOffset > 0 || props.show == true ? "white" : "transparent"};
-    color: ${props => props.scrollOffset > 0 || props.show == true ? props.theme.green1 : "white"} !important;
+    background-color: ${props => props.scrollOffset > 0 || props.show == true || props.forceWhite ? "white" : "transparent"};
+    color: ${props => props.scrollOffset > 0 || props.show == true || props.forceWhite ? props.theme.green1 : "white"} !important;
     width: 100%;
     height: 80px;
     position: fixed;
@@ -16,7 +16,7 @@ export const Container = styled.nav`
     } 
 
     @media only screen and (min-width: 768px){
-        text-shadow: 0 0 ${props => props.scrollOffset > 0 || props.show == true ? "0px" : "10px"} #00000080;
+        text-shadow: 0 0 ${props => props.scrollOffset > 0 || props.show == true || props.forceWhite ? "0px" : "10px"} #00000080;
     }
 `
 

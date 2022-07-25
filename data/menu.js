@@ -18,7 +18,7 @@ export const MENU_ITEMS = [
     {
         text: "Acheter",
         id: "nav-acheter",
-        link: "/",
+        link: "/search?offerType=buy&propertyType=house",
         side: "left",
         showIfLogged: true,
         hideIfNotLogged: false
@@ -26,7 +26,7 @@ export const MENU_ITEMS = [
     {
         text: "Louer",
         id: "nav-louer",
-        link: "/",
+        link: "/search?offerType=rent&propertyType=house",
         side: "left",
         showIfLogged: true,
         hideIfNotLogged: false
